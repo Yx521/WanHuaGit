@@ -86,10 +86,4 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
         return new Presenter<>();
     }
 
-
-
-
-    public void add() {
-        Log.e("yx", "add: "+"=====ok" );
-    }
 }
