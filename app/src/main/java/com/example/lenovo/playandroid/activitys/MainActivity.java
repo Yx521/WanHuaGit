@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity
 
         mClassifyFragment = new ClassifyFragment();
         mItemsFragment = new ItemsFragment();
+        //区分fragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
