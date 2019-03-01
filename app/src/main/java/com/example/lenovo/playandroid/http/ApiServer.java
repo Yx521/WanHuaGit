@@ -12,8 +12,10 @@ import retrofit2.http.Path;
  */
 
 public interface ApiServer {
-
+     //主页Banner
     @GET("banner/json")
     Observable<BannerBean> getBanner();
+
+
 
 }
