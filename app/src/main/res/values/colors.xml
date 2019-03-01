@@ -13,4 +13,7 @@
     <color name="tab_bac">#049486</color>
     <color name="colorBackground">#EEEEEE</color>
     <color name="comment_line">#dddddd</color>
+    <color name="light_red">#e26d2e</color>
+    <color name="grey">#cccccc</color>
+    <color name="comment_text">#5b5d5c</color>
 </resources>

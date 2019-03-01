@@ -30,19 +30,19 @@
             app:tl_indicator_margin_left="@dimen/dp_5"
             app:tl_indicator_margin_right="@dimen/dp_5"
             app:tl_indicator_style="BLOCK"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <View
             android:id="@+id/project_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:background="@color/comment_line"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/project_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </LinearLayout>
 </FrameLayout>

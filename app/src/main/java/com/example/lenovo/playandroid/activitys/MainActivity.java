@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.fragments.bothurdle.homepage.HomePageFragment;
+import com.example.lenovo.playandroid.fragments.bothurdle.items.ClassifyFragment;
 import com.example.lenovo.playandroid.fragments.bothurdle.items.ItemsFragment;
 import com.example.lenovo.playandroid.fragments.bothurdle.knowledgehierarchy.KnowledgeHierarchyFragment;
 import com.example.lenovo.playandroid.fragments.bothurdle.navigation.NavigationFragment;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    private ClassifyFragment mClassifyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         actionBar.setDisplayShowTitleEnabled(false);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#049486")));
+        mClassifyFragment = new ClassifyFragment();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +150,7 @@ public class MainActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new HomePageFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new HomePageFragment(),"0").commit();
                         break;
                     case R.id.tab_knowledge_hierarchy:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new KnowledgeHierarchyFragment()).commit();
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new NavigationFragment()).commit();
                         break;
                     case R.id.tab_project:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new ItemsFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new ItemsFragment(),"4").commit();
                         break;
                     default:
                         break;

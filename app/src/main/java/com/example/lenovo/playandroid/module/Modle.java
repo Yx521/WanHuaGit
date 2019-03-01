@@ -2,6 +2,10 @@ package com.example.lenovo.playandroid.module;
 
 
 import com.example.lenovo.playandroid.base.basemodule.HttpFinishCallBack;
+import com.example.lenovo.playandroid.bean.yxbean.ProjectClassify;
+import com.example.lenovo.playandroid.http.BaseObserver;
+import com.example.lenovo.playandroid.http.HttpManager;
+import com.example.lenovo.playandroid.http.RxUtils;
 
 /**
  * Created by lenovo on 2019/2/28.
@@ -15,6 +19,15 @@ public class Modle {
     }
 
     public void getData(final Callback Callback, Object obj) {
-
+        Callback.setAnimation();
+        HttpManager.getInstance().getServer().getProjectClassifyData()
+                .compose(RxUtils.<ProjectClassify>rxOBserableSchedulerHelper())
+                .subscribe(new BaseObserver<ProjectClassify>(Callback) {
+                    @Override
+                    public void onNext(ProjectClassify value) {
+                        Callback.setData(value);
+                        Callback.setHidoAnimation();
+                    }
+                });
     }
 }
