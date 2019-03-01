@@ -34,6 +34,8 @@ public class HomePageFragment extends BaseFragment<IView, ZlPresenter<IView>> im
     Unbinder unbinder;
     private String TAG = "HomePageFragment";
 
+
+
     @Override
     public void show(Object o) {
         Log.e("data", o.toString());

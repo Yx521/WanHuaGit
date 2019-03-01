@@ -19,12 +19,14 @@ public class ZlModule {
     }
 
     public void zlgetData(Object obj, final FinishData finish) {
+        finish.setAnimation();
         Observable<BannerBean> banner = HttpManager.getInstance().getServer().getBanner();
         banner.compose(RxUtils.<BannerBean>rxOBserableSchedulerHelper())
                 .subscribe(new BaseObserver<BannerBean>(finish) {
                     @Override
                     public void onNext(BannerBean value) {
                         finish.zlData(value);
+                        finish.setHidoAnimation();
                     }
                 });
     }
