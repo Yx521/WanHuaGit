@@ -1,16 +1,18 @@
 package com.example.lenovo.playandroid.presenter.yx;
 
+
 import com.example.lenovo.playandroid.base.presenter.IBasePresenter;
-import com.example.lenovo.playandroid.module.yx.YxModle;
+import com.example.lenovo.playandroid.module.yx.Modle;
 import com.example.lenovo.playandroid.view.yx.IView;
 
 /**
- * Created by lenovo on 2019/3/1.
+ * Created by lenovo on 2019/2/28.
  */
 
-public class YxPresenter<V extends IView> extends IBasePresenter<V> implements YxModle.Callback{
+public class Presenter<V extends IView> extends IBasePresenter<V> implements Modle.Callback {
+
     //创建Modle层实例化对象
-    private YxModle mModle = new YxModle();
+    private Modle mModle = new Modle();
     @Override
     public void setAnimation() {
         //向V层发送显示Progressbar信号

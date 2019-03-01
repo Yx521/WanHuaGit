@@ -1,4 +1,4 @@
-package com.example.lenovo.playandroid.base.fragment;
+package com.example.lenovo.playandroid.base.activity;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +14,31 @@ import com.example.lenovo.playandroid.base.view.BaseView;
  * Created by lenovo on 2019/2/28.
  */
 
-public abstract class BaseFragment<V, P extends BasePresenter<V>> extends SimpleFragment implements BaseView {
+public abstract class BaseActivity<V, P extends BasePresenter<V>> extends SimpleActivity implements BaseView {
     //动画对象
     private LottieAnimationView mLoading_animation;
     //P层的对象
     public P mPresenter;
     private RelativeLayout mLoading_group;
 
+    //绑定布局
     @Override
-    public void viewCread(View view) {
-        super.viewCread(view);//先执行SimpleActivity中的viewCreated的方法
+    public void viewCreated(View view) {
+        super.viewCreated(view);//先执行SimpleActivity中的viewCreated的方法
         //找到动画的布局
-        View inflate = View.inflate(mContext, R.layout.loading_view, (ViewGroup) view);
+        View inflate = View.inflate(this, R.layout.loading_view, (ViewGroup) view);
         //通过动画的ID找到控件
         mLoading_animation = inflate.findViewById(R.id.loading_animation);
         mLoading_group = inflate.findViewById(R.id.loading_group);
-        if (mPresenter == null) {//判断P层对象为null
-            mPresenter = createPresenter();//定义子类的P层对象
-            if (mPresenter != null) {//判断P层对象不会null
-                mPresenter.attachView((V) this);//绑定View
-            }
+        //定义子类的P层对象
+        mPresenter = createPresenter();
+        if (mPresenter != null) {//判断P层对象不会null
+            mPresenter.attachView((V) this);//绑定View
         }
     }
+
+    //创建子类的P层对象
+    protected abstract P createPresenter();
 
     //开启动画
     @Override
@@ -53,13 +56,10 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>> extends Simple
         mLoading_animation.cancelAnimation();
     }
 
-
-    //创建子类的P层对象
-    protected abstract P createPresenter();
-
+    //工作线程的销毁和停止的时候执行
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();//先执行SimpleActivity中的onDestroy()
+    protected void onDestroy() {
+        super.onDestroy();//先执行SimpleActivity中的onDestroy()
         if (mPresenter != null) {//判断P层对象不等于空
             mPresenter.detachView();//解绑View
             mPresenter = null;//将P层定义为空

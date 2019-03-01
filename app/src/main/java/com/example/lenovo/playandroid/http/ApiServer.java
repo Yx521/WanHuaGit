@@ -1,9 +1,9 @@
 package com.example.lenovo.playandroid.http;
 
 
-import com.example.lenovo.playandroid.bean.yxbean.ProjectClassify;
-import com.example.lenovo.playandroid.bean.yxbean.ProjectClassifyData;
-import com.example.lenovo.playandroid.bean.zlbean.BannerBean;
+import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
+import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
+import com.example.lenovo.playandroid.beans.zl.BannerBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

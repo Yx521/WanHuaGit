@@ -1,11 +1,10 @@
 package com.example.lenovo.playandroid.module.zl;
 
-import com.example.lenovo.playandroid.base.basemodule.HttpFinishCallBack;
-import com.example.lenovo.playandroid.bean.zlbean.BannerBean;
+import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
+import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
 import com.example.lenovo.playandroid.http.RxUtils;
-import com.example.lenovo.playandroid.presenter.zlpresenter.ZlPresenter;
 
 import io.reactivex.Observable;
 

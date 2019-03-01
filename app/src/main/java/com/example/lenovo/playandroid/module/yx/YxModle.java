@@ -1,8 +1,7 @@
 package com.example.lenovo.playandroid.module.yx;
 
-import com.example.lenovo.playandroid.base.basemodule.HttpFinishCallBack;
-import com.example.lenovo.playandroid.bean.yxbean.ProjectClassify;
-import com.example.lenovo.playandroid.bean.yxbean.ProjectClassifyData;
+import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
+import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
 import com.example.lenovo.playandroid.http.RxUtils;

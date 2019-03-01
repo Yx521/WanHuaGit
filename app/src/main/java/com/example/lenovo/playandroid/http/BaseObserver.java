@@ -1,7 +1,7 @@
 package com.example.lenovo.playandroid.http;
 
 
-import com.example.lenovo.playandroid.base.basemodule.HttpFinishCallBack;
+import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
