@@ -92,6 +92,7 @@ public class SplashActivity extends AppCompatActivity {
                 mTenAnimation.cancelAnimation();
 
                 startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
             }
         }.start();
     }

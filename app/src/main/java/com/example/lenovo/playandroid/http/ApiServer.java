@@ -1,8 +1,6 @@
 package com.example.lenovo.playandroid.http;
 
 
-import com.example.lenovo.playandroid.bean.zlbean.BannerBean;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -12,8 +10,5 @@ import retrofit2.http.Path;
  */
 
 public interface ApiServer {
-
-    @GET("banner/json")
-    Observable<BannerBean> getBanner();
 
 }
