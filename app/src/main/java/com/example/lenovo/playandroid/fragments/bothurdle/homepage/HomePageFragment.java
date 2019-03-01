@@ -34,6 +34,7 @@ public class HomePageFragment extends BaseFragment<IView, ZlPresenter<IView>> im
     Unbinder unbinder;
     private String TAG = "HomePageFragment";
 
+
     @Override
     public void show(Object o) {
         Log.e("data", o.toString());
@@ -59,6 +60,7 @@ public class HomePageFragment extends BaseFragment<IView, ZlPresenter<IView>> im
         mRecyclerview.setItemAnimator(new DefaultItemAnimator());
 
         ZlRecycAdapter zlRecycAdapter = new ZlRecycAdapter(new ArrayList<BannerBean.DataBean>());
+        mRecyclerview.setAdapter(zlRecycAdapter);
     }
 
     @Override
