@@ -47,7 +47,7 @@
         android:layout_marginBottom="@dimen/dp_60"
         android:layout_marginRight="@dimen/dp_16"
         android:src="@mipmap/icon_up_arrow"
-         />
+         app:layout_behavior="com.example.lenovo.playandroid.utils.ScaleDownShowBehavior"/>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/design_bottom_sheet"
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         app:menu="@menu/bottom_navigation_main"
         android:background="@color/colorCard"
         app:elevation="@dimen/dp_16"
-        />
+        app:layout_behavior="@string/bye_burger_bottom_behavior" />
 
 
 </android.support.design.widget.CoordinatorLayout>

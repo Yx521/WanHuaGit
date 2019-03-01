@@ -88,8 +88,8 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
 
 
 
-    @OnClick(R.id.normal_view)
-    public void onViewClicked() {
-        Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
+
+    public void add() {
+        Log.e("yx", "add: "+"=====ok" );
     }
 }

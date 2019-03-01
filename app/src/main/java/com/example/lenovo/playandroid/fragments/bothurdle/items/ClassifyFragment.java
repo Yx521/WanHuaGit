@@ -7,9 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.example.lenovo.playandroid.R;
@@ -21,6 +23,10 @@ import com.example.lenovo.playandroid.presenter.Presenter;
 import com.example.lenovo.playandroid.presenter.yx.YxPresenter;
 import com.example.lenovo.playandroid.view.IView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +54,7 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
     private FloatingActionButton mFab;
     private int mDistanceY;
     private boolean isBottomShow = true;
+    private LinearLayoutManager mManager;
 
     public static ClassifyFragment getFrag(int id, String name) {
         Bundle bundle = new Bundle();
@@ -66,6 +73,7 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.project_list_recycler_view);
         MainActivity activity = (MainActivity) getActivity();
         mDesign = activity.findViewById(R.id.design_bottom_sheet);
@@ -80,38 +88,12 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
 
         mPresenter.getDataP(map);
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mProjectListRecyclerView.setLayoutManager(manager);
+        mManager = new LinearLayoutManager(getContext());
+        mProjectListRecyclerView.setLayoutManager(mManager);
 
         ArrayList<ProjectClassifyData.DataBean.DatasBean> datasBeans = new ArrayList<>();
         mClassifyAdapter = new ClassifyAdapter(getContext(),datasBeans);
         mProjectListRecyclerView.setAdapter(mClassifyAdapter);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mProjectListRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy<0){
-                    mDesign.setVisibility(View.VISIBLE);
-                    mFab.setVisibility(View.VISIBLE);
-                }else if(dy>0){
-                    mDesign.setVisibility(View.INVISIBLE);
-                    mFab.setVisibility(View.INVISIBLE);
-
-                }
-            }
-        });
 
     }
 
@@ -120,6 +102,14 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
         ProjectClassifyData projectClassifyData = (ProjectClassifyData) o;
         List<ProjectClassifyData.DataBean.DatasBean> datas = projectClassifyData.getData().getDatas();
         mClassifyAdapter.addData(datas);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void upView(String str){
+        if("4".equals(str)){
+            Log.e("yxup", "upView: " );
+            mProjectListRecyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override
@@ -132,4 +122,9 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
         return new YxPresenter<>();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 }

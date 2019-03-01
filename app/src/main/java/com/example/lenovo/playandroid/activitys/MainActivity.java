@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,8 @@ import com.example.lenovo.playandroid.fragments.bothurdle.knowledgehierarchy.Kno
 import com.example.lenovo.playandroid.fragments.bothurdle.navigation.NavigationFragment;
 import com.example.lenovo.playandroid.fragments.bothurdle.vipcn.VipcnFragment;
 import com.example.lenovo.playandroid.utils.BottomNavigationViewHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     private ClassifyFragment mClassifyFragment;
+    private int index;
+    private ItemsFragment mItemsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +70,27 @@ public class MainActivity extends AppCompatActivity
         actionBar.setDisplayShowTitleEnabled(false);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#049486")));
+
         mClassifyFragment = new ClassifyFragment();
+        mItemsFragment = new ItemsFragment();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
+                if(index==0){
+                    EventBus.getDefault().post("0");
+                }else if(index==1){
+                    EventBus.getDefault().post("1");
+                }else if(index==2){
+                    EventBus.getDefault().post("2");
+                }else if(index==3){
+                    EventBus.getDefault().post("3");
+                }else
+                if(index==4){
+                    EventBus.getDefault().post("4");
+                }
+
             }
         });
 
@@ -150,19 +170,24 @@ public class MainActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
+                        index=0;
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new HomePageFragment(),"0").commit();
                         break;
                     case R.id.tab_knowledge_hierarchy:
+                        index=1;
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new KnowledgeHierarchyFragment()).commit();
                         break;
                     case R.id.tab_wx_article:
+                        index=2;
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new VipcnFragment()).commit();
                         break;
                     case R.id.tab_navigation:
+                        index=3;
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new NavigationFragment()).commit();
                         break;
                     case R.id.tab_project:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new ItemsFragment(),"4").commit();
+                        index=4;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,mItemsFragment,"4").commit();
                         break;
                     default:
                         break;
