@@ -9,32 +9,40 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
+import com.example.lenovo.playandroid.activitys.zl.LoginActivity;
 import com.example.lenovo.playandroid.fragments.zl.HomePageFragment;
 import com.example.lenovo.playandroid.fragments.yx.ClassifyFragment;
 import com.example.lenovo.playandroid.fragments.yx.ItemsFragment;
 import com.example.lenovo.playandroid.fragments.wx.KnowledgeHierarchyFragment;
 import com.example.lenovo.playandroid.fragments.wlg.NavigationFragment;
 import com.example.lenovo.playandroid.fragments.yyj.VipcnFragment;
+import com.example.lenovo.playandroid.fragments.zl.SettingFragment;
 import com.example.lenovo.playandroid.utils.BottomNavigationViewHelper;
 import com.example.lenovo.playandroid.utils.CircularAnimUtil;
 import com.example.lenovo.playandroid.utils.CircularRevealAnim;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.util.ErrorDialogManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +70,8 @@ public class MainActivity extends AppCompatActivity
     private UsageDialogFragment usageDialogFragment;
     private CircularRevealAnim mCircularRevealAnim;
     private SearchFragment mSearchFragment;
+    private TextView mLogin;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +120,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         initBottomNavigationView();
         initDrawerLayout();
+        View headerView = mNavView.getHeaderView(0);
+        mLogin = headerView.findViewById(R.id.nav_header_login_tv);
+        loginListener();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment()).commit();
+    }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new HomePageFragment()).commit();
+    private void loginListener() {
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     @Override
@@ -170,12 +191,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_item_wan_android:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
 
+                mCommonToolbarTitleTv.setText(getString(R.string.home_pager));
                 break;
             case R.id.nav_item_my_collect:
 
                 break;
             case R.id.nav_item_setting:
+                mCommonToolbarTitleTv.setText(getString(R.string.setting));
+                FragmentManager supportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
+                fragmentTransaction.commit();
+
 
                 break;
             case R.id.nav_item_about_us:
@@ -225,6 +254,7 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
+
     private void initDrawerLayout() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -255,5 +285,27 @@ public class MainActivity extends AppCompatActivity
         };
         toggle.syncState();
         mDrawerLayout.addDrawerListener(toggle);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Snackbar.make(mNavView,getString(R.string.double_click_exit_tint),Snackbar.LENGTH_SHORT)
+                        .setActionTextColor(Color.parseColor("#049486"))
+                        .setAction("知道了", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        }).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

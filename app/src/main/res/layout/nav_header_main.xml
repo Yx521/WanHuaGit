@@ -4,6 +4,7 @@
     android:layout_height="200dp"
     android:background="@mipmap/ic_navigation_bg"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center"
@@ -24,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/login_in"
-        android:textSize="20sp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 </LinearLayout>

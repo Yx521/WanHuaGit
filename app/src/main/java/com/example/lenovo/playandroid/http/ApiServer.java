@@ -7,6 +7,7 @@ import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.beans.yx.SearchList;
 import com.example.lenovo.playandroid.beans.yx.UsefulSiteData;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
+import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -22,9 +23,18 @@ import retrofit2.http.Query;
 
 public interface ApiServer {
 
-     //主页Banner
+    //主页Banner
     @GET("banner/json")
     Observable<BannerBean> getBanner();
+
+    //主页item
+    @GET("article/list/{num}/json")
+    Observable<FeedArticleListData> getFeedArticleList(@Path("num") int num);
+
+
+
+    @GET("wxarticle/list/{id}/{num}/json")
+    Observable<FeedArticleListData> getIdFeedArticleList(@Path("id") int id, @Path("num") int num);
 
     /**
      * 项目分类

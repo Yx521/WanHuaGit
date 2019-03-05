@@ -15,6 +15,7 @@ import com.example.lenovo.playandroid.adapter.yx.ItemsAdapter;
 import com.example.lenovo.playandroid.base.fragment.BaseFragment;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
 import com.example.lenovo.playandroid.presenter.yx.Presenter;
+import com.example.lenovo.playandroid.presenter.yx.YxPresenter;
 import com.example.lenovo.playandroid.view.yx.IView;
 import com.flyco.tablayout.SlidingTabLayout;
 

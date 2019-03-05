@@ -27,6 +27,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="style_float_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -53,4 +54,21 @@
         <item name="android:windowEnterAnimation">@null</item>
         <item name="android:windowExitAnimation">@null</item>
     </style>
+
+    <!-- <style name="AppTheme.PopupOverlay1" parent="ThemeOverlay.AppCompat.Light" >
+         &lt;!&ndash; 是否覆盖锚点，默认为true，即盖住Toolbar &ndash;&gt;
+         <item name="overlapAnchor">false</item>
+         &lt;!&ndash;距离右边间距&ndash;&gt;
+         <item name="android:paddingRight">0dp</item>
+         &lt;!&ndash;背景颜色&ndash;&gt;
+         <item name="android:colorBackground">#ffffff</item>
+         &lt;!&ndash;字体颜色&ndash;&gt;
+         <item name="android:textColorPrimary">#000000</item>
+     </style>-->
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 添加这一句， 即可改变toolbar menu 图标的颜色-->
+        <item name="android:textColorSecondary">#ffffff</item>
+    </style>
+
+
 </resources>

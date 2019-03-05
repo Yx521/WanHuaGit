@@ -24,6 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activitys.zl.WebActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activitys.zl.SuperChapterNameActivity" />
+        <activity android:name=".activitys.zl.LoginActivity" />
         <activity android:name=".activitys.yx.WebViewActivity" />
         <activity android:name=".activitys.yx.SearchListActivity"
             />

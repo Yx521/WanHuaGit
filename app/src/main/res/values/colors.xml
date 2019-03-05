@@ -16,7 +16,6 @@
     <color name="light_red">#e26d2e</color>
     <color name="grey">#cccccc</color>
     <color name="comment_text">#5b5d5c</color>
-    <color name="light_green">#3fc75f</color>
     <color name="transparent">#00000000</color>
     <color name="light_tab_bac">#45c1b5</color>
     <color name="title_black">#222222</color>
@@ -25,8 +24,6 @@
     <color name="deep_red">#dc3b1f</color>
     <color name="blue">#3F9FE0</color>
     <color name="grey_search">#FF999999</color>
-    <color name="light_deep_red">#f9382a</color>
-    <color name="colorPrimaryOverlay">#00abff</color>
     <!--通用触摸背景色-->
     <color name="common_touch_bg">#E3E3E3</color>
     <!--通用背景色-->
@@ -35,4 +32,11 @@
     <color name="card_bac">#f7f3f3</color>
     <color name="search_grey_gone">#bbbbbb</color>
     <color name="search_grey">#FF000000</color>
+    <color name="colorPrimaryOverlay">#00abff</color>
+
+    <color name="light_deep_red">#f9382a</color>
+    <color name="light_green">#3fc75f</color>
+
+    <color name="light_transparent">#00ffffff</color>
+
 </resources>

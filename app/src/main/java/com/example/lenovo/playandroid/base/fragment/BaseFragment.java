@@ -8,6 +8,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.presenter.BasePresenter;
 import com.example.lenovo.playandroid.base.view.BaseView;
+import com.example.lenovo.playandroid.presenter.yx.YxPresenter;
+import com.example.lenovo.playandroid.view.yx.IView;
 
 
 /**

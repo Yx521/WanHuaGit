@@ -18,17 +18,26 @@
     <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
     <string name="login_in">Login</string>
     <string name="useful_sites">Useful Sites</string>
-    <string name="action_search">搜索</string>
+    <string name="action_search">Search</string>
+    <string name="load_more_no_data">没有多余的干货了(*≧Д≦*)</string>
     <string name="minute">分钟</string>
     <string name="hour">小时</string>
     <string name="one_day">1天</string>
     <string name="text_new">新</string>
 
     <string name="action_settings">Settings</string>
-
+    <string name="setting_normal">通用设置</string>
+    <string name="setting_cache">自动缓存</string>
+    <string name="setting_image">无图模式</string>
+    <string name="setting_night">夜间模式</string>
+    <string name="setting_other">其它设置</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_clear">清除缓存</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="install">install</string>
+    <string name="account_password_null_tint">用户名或密码不能为空</string>
+    <string name="double_click_exit_tint">再按一次后退键退出GeeksAndroid</string>
     <string name="share_view">shareView</string>
     <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
     <string name="reload">Reload</string>
