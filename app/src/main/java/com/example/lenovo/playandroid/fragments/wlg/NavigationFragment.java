@@ -20,6 +20,7 @@ import com.example.lenovo.playandroid.presenter.wlg.WlgNaviPresenter;
 import com.example.lenovo.playandroid.view.wlg.WlgNaviView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +51,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
     private boolean needScroll;
     private boolean isClickTab;
     private int mIndex;
+    private List<NaviBean.DataBean> mData;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -58,7 +60,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
 
     @Override
     protected int creatrLayoutId() {
-        return R.layout.fragment_setting;
+        return R.layout.fragment_navigation;
     }
 
     @Override
@@ -67,6 +69,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
         ArrayList<NaviBean.DataBean> dataBeans = new ArrayList<>();
         mNaviAdapter = new NaviAdapter(R.layout.item_list, dataBeans);
         xlvNavi.setLayoutManager(mManager);
+        xlvNavi.setHasFixedSize(true);
         xlvNavi.setAdapter(mNaviAdapter);
         mPresenter.setNavi();
 
@@ -80,10 +83,13 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
     @Override
     public void shouNaviBean(final NaviBean naviBean) {
         Log.e("wlg导航", "shouNaviBean: " + naviBean);
+        mData = naviBean.getData();
+
+
         tabNavi.setTabAdapter(new TabAdapter() {
             @Override
             public int getCount() {
-                return naviBean.getData() == null ? 0 : naviBean.getData().size();
+                return mData == null ? 0 : mData.size();
             }
 
             @Override
@@ -100,7 +106,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
             @Override
             public ITabView.TabTitle getTitle(int i) {
                 return new TabView.TabTitle.Builder()
-                        .setContent(naviBean.getData().get(i).getName())
+                        .setContent(mData.get(i).getName())
                         .setTextColor(ContextCompat.getColor(getActivity(), R.color.tab_bac),
                                 ContextCompat.getColor(getActivity(), R.color.grey))
                         .build();
@@ -113,7 +119,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
         });
         setChildViewVisibility(View.VISIBLE);
 
-        mNaviAdapter.replaceData(naviBean.getData());
+        mNaviAdapter.replaceData(mData);
         mNaviAdapter.openLoadAnimation(5);
         leftRightLinkage();
 

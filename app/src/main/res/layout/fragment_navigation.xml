@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/li"
+   >
+
+    <q.rorbin.verticaltablayout.VerticalTabLayout
+        android:layout_width="@dimen/dp_100"
+        android:id="@+id/tab_navi"
+        app:tab_height="@dimen/dp_50"
+
+
+        app:indicator_color="@color/colorCard"
+        app:indicator_gravity="fill"
+        app:tab_margin="@dimen/dp_15"
+        app:tab_mode="scrollable"
+
+        android:layout_height="match_parent"/>
+    <View
+        android:id="@+id/navigation_divider"
+        android:layout_width="@dimen/dp_3"
+        android:layout_height="match_parent"
+        android:background="@color/grey"
+
+        android:visibility="invisible" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:background="@color/colorCard"
+        android:id="@+id/xlv_navi"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
