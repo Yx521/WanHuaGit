@@ -1,6 +1,7 @@
 package com.example.lenovo.playandroid.http;
 
 
+import com.example.lenovo.playandroid.beans.wlg.NaviBean;
 import com.example.lenovo.playandroid.beans.wx.Batree;
 import com.example.lenovo.playandroid.beans.wx.Re;
 import com.example.lenovo.playandroid.beans.TopSearchData;
@@ -48,6 +49,10 @@ public interface ApiServer {
 
     @GET("project/list/{page}/json")
     Observable<ProjectClassifyData> getProjectListData(@Path("page") int page, @Query("cid") int cid);
+    //导航数据
+    @GET("navi/json")
+    Observable<NaviBean> getNaviBean();
+
 /*
 *
 * 知识体系

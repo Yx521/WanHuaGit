@@ -41,6 +41,12 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
     @BindView(R.id.normal_view)
     LinearLayout mNormalView;
 
+    private View view;
+
+    public ItemsFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     protected int creatrLayoutId() {
         return R.layout.fragment_items;

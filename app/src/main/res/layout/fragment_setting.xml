@@ -176,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0_5"
                 android:background="@color/comment_line" />
-          
+
 
             <LinearLayout
                 android:id="@+id/ll_setting_clear"

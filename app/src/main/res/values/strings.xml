@@ -26,6 +26,12 @@
     <string name="text_new">新</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="share">Share</string>
+    <string name="collect">Collect</string>
+    <string name="open_it_with_browser">Open it with the system browser</string>
+    <string name="error">网络错误</string>
+
     <string name="setting_normal">通用设置</string>
     <string name="setting_cache">自动缓存</string>
     <string name="setting_image">无图模式</string>
@@ -49,4 +55,5 @@
     <string name="clear_all">清空</string>
     <string name="history_search">搜索历史</string>
     <string name="search_null_tint">快点搜点干货吧 *≧▽≦*</string>
+    <string name="updatelogin">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
 </resources>
