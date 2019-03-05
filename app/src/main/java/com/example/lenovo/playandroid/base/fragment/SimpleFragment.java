@@ -87,9 +87,9 @@ public abstract class SimpleFragment extends Fragment {
     //当与fragment关联的视图被移除的时候调用
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         if (mBind != null) {//判断布局不等于空的时候
             mBind.unbind();//释放资源
         }
+        super.onDestroyView();
     }
 }

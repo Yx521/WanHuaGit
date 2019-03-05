@@ -8,6 +8,7 @@
     <string name="wx_article">公众号</string>
     <string name="navigation">导航</string>
     <string name="project">项目</string>
+    <string name="open_project">开源项目</string>
     <string name="home_pager">首页</string>
     <string name="my_collect">收藏</string>
     <string name="about_us">关于我们</string>
@@ -17,11 +18,26 @@
     <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
     <string name="login_in">Login</string>
     <string name="useful_sites">Useful Sites</string>
-    <string name="action_search">Search</string>
+    <string name="action_search">搜索</string>
+    <string name="minute">分钟</string>
+    <string name="hour">小时</string>
+    <string name="one_day">1天</string>
+    <string name="text_new">新</string>
 
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="install">install</string>
+    <string name="share_view">shareView</string>
+    <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
+    <string name="reload">Reload</string>
+    <string name="share_type_url">%1$sShare【%2$s】special top：%3$s</string>
+    <string name="share">分享</string>
+    <string name="open_it_with_browser">用系统浏览器打开</string>
+    <string name="search_tint">发现更多干货</string>
+    <string name="hot_search">热搜</string>
+    <string name="clear_all">清空</string>
+    <string name="history_search">搜索历史</string>
+    <string name="search_null_tint">快点搜点干货吧 *≧▽≦*</string>
 </resources>

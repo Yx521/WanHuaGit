@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -15,6 +16,26 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    //解决xrecyclerview依赖冲突
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '27.1.1'
+                }
+            }
+        }
+    }
+    greendao {
+        //数据库的schema版本，也可以理解为数据库版本号
+        schemaVersion 1
+        //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
+        daoPackage 'com.example.lenovo.playandroid.dao'
+        //设置DaoMaster、DaoSession、Dao目录
+        targetGenDir 'src/main/java'
+
     }
 }
 
@@ -59,6 +80,15 @@ dependencies {
 
     compile 'com.github.githubwing:ByeBurger:1.1.0'
 
-//EventBus
+    //EventBus
     compile 'org.greenrobot:eventbus:3.1.1'
+
+    compile 'com.just.agentweb:agentweb:4.0.2'
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+
+    compile 'com.hyman:flowlayout-lib:1.1.2'
+
+    implementation 'org.greenrobot:greendao:3.2.2'
+
 }

@@ -1,6 +1,7 @@
 package com.example.lenovo.playandroid.activitys.yx;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.lenovo.playandroid.R;
+import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
+import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
 import com.example.lenovo.playandroid.fragments.zl.HomePageFragment;
 import com.example.lenovo.playandroid.fragments.yx.ClassifyFragment;
 import com.example.lenovo.playandroid.fragments.yx.ItemsFragment;
@@ -28,6 +31,8 @@ import com.example.lenovo.playandroid.fragments.wx.KnowledgeHierarchyFragment;
 import com.example.lenovo.playandroid.fragments.wlg.NavigationFragment;
 import com.example.lenovo.playandroid.fragments.yyj.VipcnFragment;
 import com.example.lenovo.playandroid.utils.BottomNavigationViewHelper;
+import com.example.lenovo.playandroid.utils.CircularAnimUtil;
+import com.example.lenovo.playandroid.utils.CircularRevealAnim;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,6 +59,9 @@ public class MainActivity extends AppCompatActivity
     private ClassifyFragment mClassifyFragment;
     private int index;
     private ItemsFragment mItemsFragment;
+    private UsageDialogFragment usageDialogFragment;
+    private CircularRevealAnim mCircularRevealAnim;
+    private SearchFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,14 +131,36 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
+        switch (item.getItemId()) {
+            case R.id.action_usage:
+                if (usageDialogFragment == null) {
+                    usageDialogFragment = new UsageDialogFragment();
+                }
+                if (!isDestroyed() && usageDialogFragment.isAdded()) {
+                    usageDialogFragment.dismiss();
+                }
+                usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
+                break;
+            case R.id.action_search:
+                if(mSearchFragment==null){
+                    mSearchFragment = new SearchFragment();
+                }
+                if(!isDestroyed()&&mSearchFragment.isAdded()){
+                    mSearchFragment.dismiss();
+                }
+                mSearchFragment.show(getSupportFragmentManager(),"SearchFragment");
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressLint("ResourceType")
     @SuppressWarnings("StatementWithEmptyBody")

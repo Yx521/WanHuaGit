@@ -1,11 +1,13 @@
 package com.example.lenovo.playandroid.fragments.yx;
 
 
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.lenovo.playandroid.R;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -36,13 +39,6 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
     ViewPager mProjectViewpager;
     @BindView(R.id.normal_view)
     LinearLayout mNormalView;
-    Unbinder unbinder;
-    Unbinder unbinder1;
-    private View view;
-
-    public ItemsFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     protected int creatrLayoutId() {

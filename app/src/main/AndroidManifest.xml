@@ -3,7 +3,7 @@
     package="com.example.lenovo.playandroid">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.App"
@@ -16,9 +16,7 @@
         <activity
             android:name=".activitys.yx.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activitys.yx.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.yx.WebViewActivity" />
+        <activity android:name=".activitys.yx.SearchListActivity"
+            />
     </application>
 
 </manifest>

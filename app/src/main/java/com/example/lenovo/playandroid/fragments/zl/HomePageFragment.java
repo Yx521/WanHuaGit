@@ -64,11 +64,4 @@ public class HomePageFragment extends BaseFragment<IView, ZlPresenter<IView>> im
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
-    }
 }

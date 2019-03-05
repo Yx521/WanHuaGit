@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 public class ClassifyAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private ArrayList<ProjectClassifyData.DataBean.DatasBean> mData;
+    private OnItemClickListener mListener;
 
     public ClassifyAdapter(Context context, ArrayList<ProjectClassifyData.DataBean.DatasBean> datasBeans) {
         this.mContext = context;
@@ -41,7 +42,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ViewHolderClassify holderClassify = (ViewHolderClassify) holder;
         if (!TextUtils.isEmpty(mData.get(position).getEnvelopePic())) {
             Glide.with(mContext).load(mData.get(position).getEnvelopePic()).into(holderClassify.mItemProjectListIv);
@@ -63,6 +64,15 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
         } else {
             holderClassify.mItemProjectListInstallTv.setVisibility(View.GONE);
         }
+
+        holderClassify.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener!=null){
+                    mListener.onItemClick(v,position,mData);
+                }
+            }
+        });
     }
 
     @Override
@@ -93,5 +103,13 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position,ArrayList<ProjectClassifyData.DataBean.DatasBean> mData);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
     }
 }

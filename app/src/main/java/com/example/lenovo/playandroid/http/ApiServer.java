@@ -1,12 +1,18 @@
 package com.example.lenovo.playandroid.http;
 
 
+import com.example.lenovo.playandroid.beans.TopSearchData;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
+import com.example.lenovo.playandroid.beans.yx.SearchList;
+import com.example.lenovo.playandroid.beans.yx.UsefulSiteData;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -30,4 +36,15 @@ public interface ApiServer {
 
     @GET("project/list/{page}/json")
     Observable<ProjectClassifyData> getProjectListData(@Path("page") int page, @Query("cid") int cid);
+
+
+    @GET("friend/json")
+    Observable<UsefulSiteData> getUsefulSiteData();
+
+    @GET("hotkey/json")
+    Observable<TopSearchData> getTopSearchData();
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    Observable<SearchList> getSearchList(@Path("page") int page, @Field("k") String k);
 }
