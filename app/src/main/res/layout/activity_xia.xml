@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".activitys.yyj.XiaActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="#bc24c1ec">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+
+            <ImageView
+                android:id="@+id/fan"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_arrow_back_white_24dp" />
+
+            <TextView
+                android:id="@+id/shu"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/dp_17"
+                android:layout_width="@dimen/dp_210"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_33"
+                android:layout_marginTop="@dimen/dp_14"
+                android:ellipsize="end"
+                android:maxLines="1" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/xihuan"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:visibility="visible"
+                android:layout_marginLeft="@dimen/dp_260"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@mipmap/ic_toolbar_like_n" />
+            <ImageView
+                android:id="@+id/noxihuan"
+                android:visibility="gone"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_260"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@mipmap/ic_toolbar_like_p" />
+</LinearLayout>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:progressDrawable="@drawable/pg"
+        android:visibility="gone" />
+
+    <WebView
+        android:id="@+id/wev"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+</LinearLayout>

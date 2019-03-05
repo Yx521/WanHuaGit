@@ -9,6 +9,9 @@ import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.beans.yx.SearchList;
 import com.example.lenovo.playandroid.beans.yx.UsefulSiteData;
+import com.example.lenovo.playandroid.beans.yyj.Bean;
+import com.example.lenovo.playandroid.beans.yyj.Fuyong;
+import com.example.lenovo.playandroid.beans.yyj.sousuo;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
 
@@ -79,4 +82,24 @@ public interface ApiServer {
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<SearchList> getSearchList(@Path("page") int page, @Field("k") String k);
+    //yyj
+//复用顶部接口
+//http://wanandroid.com/wxarticle/chapters/json
+    @GET("wxarticle/chapters/json")
+    Observable<Fuyong>getFuyong();
+
+    //* 获取当前公众号某页的数据
+//     * http://wanandroid.com/wxarticle/list/405/1/json
+    @GET("wxarticle/list/{num}/{page}/json")
+    Observable<Bean>getBean(@Path("num")String num, @Path("page")String page);
+    //
+    //搜索
+    //http://wanandroid.com/wxarticle/list/419/2/json?k=Java
+
+    @GET("wxarticle/list/{num}/{page}/json")
+    Observable<sousuo>getShousuo(@Path("num")String num, @Path("page")String page);
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    Observable<Bean> getSearchListThree(@Path("page") int page, @Field("k") String k);
 }

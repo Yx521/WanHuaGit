@@ -35,6 +35,9 @@
             />
         <activity android:name=".activitys.wx.Multiplexing" />
         <activity android:name=".activitys.wx.Details" />
+        <activity android:name=".activitys.yyj.XiaActivity" />
+        <activity android:name=".activitys.yyj.XinaActivity" />
+        <activity android:name=".activitys.yyj.RegardActivity"/>
     </application>
 
 </manifest>
