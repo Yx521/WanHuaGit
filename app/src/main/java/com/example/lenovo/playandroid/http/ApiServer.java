@@ -1,6 +1,8 @@
 package com.example.lenovo.playandroid.http;
 
 
+import com.example.lenovo.playandroid.beans.wx.Batree;
+import com.example.lenovo.playandroid.beans.wx.Re;
 import com.example.lenovo.playandroid.beans.TopSearchData;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
@@ -46,6 +48,21 @@ public interface ApiServer {
 
     @GET("project/list/{page}/json")
     Observable<ProjectClassifyData> getProjectListData(@Path("page") int page, @Query("cid") int cid);
+/*
+*
+* 知识体系
+*
+* */
+//http://www.wanandroid.com/article/list/0/json?cid=60
+
+    @GET("tree/json")
+    Observable<Batree> getBatree();
+
+   @GET("article/list/{page}/json")
+    Observable <Re> getYan(@Path("page")int  page, @Query("cid") int cid);
+
+   //article/list/0/json?cid=60
+
 
 
     @GET("friend/json")

@@ -31,6 +31,8 @@ public class YxModle {
                     public void onNext(ProjectClassifyData value) {
                         callback.setData(value);
                         callback.setHidoAnimation();
+
+
                     }
                 });
     }
