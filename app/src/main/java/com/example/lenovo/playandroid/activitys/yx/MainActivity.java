@@ -1,7 +1,10 @@
 package com.example.lenovo.playandroid.activitys.yx;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,15 +21,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.lenovo.playandroid.R;
+import com.example.lenovo.playandroid.beans.zl.LoginData;
+import com.example.lenovo.playandroid.dao.LogDaoBean;
+import com.example.lenovo.playandroid.dao.LoginManager;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
 import com.example.lenovo.playandroid.activitys.zl.LoginActivity;
@@ -37,15 +47,28 @@ import com.example.lenovo.playandroid.fragments.wx.KnowledgeHierarchyFragment;
 import com.example.lenovo.playandroid.fragments.wlg.NavigationFragment;
 import com.example.lenovo.playandroid.fragments.yyj.VipcnFragment;
 import com.example.lenovo.playandroid.fragments.zl.SettingFragment;
+import com.example.lenovo.playandroid.global.Global;
+import com.example.lenovo.playandroid.http.ApiServer;
+import com.example.lenovo.playandroid.http.HttpManager;
+import com.example.lenovo.playandroid.http.SaveCookiesInterceptor;
 import com.example.lenovo.playandroid.utils.BottomNavigationViewHelper;
-import com.example.lenovo.playandroid.utils.CircularAnimUtil;
 import com.example.lenovo.playandroid.utils.CircularRevealAnim;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.util.ErrorDialogManager;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,11 +96,46 @@ public class MainActivity extends AppCompatActivity
     private TextView mLogin;
     private long exitTime;
 
+    private MenuItem mItem;
+    private List<LogDaoBean> mSelect;
+    private boolean mIsLogin;
+    private AlertDialog mAlertDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        View headerView = mNavView.getHeaderView(0);
+        mLogin = headerView.findViewById(R.id.nav_header_login_tv);
+
+        mSelect = LoginManager.mMySqlHelper().select();
+        if (mSelect.size() <= 0) {
+            LoginManager.mMySqlHelper().insert(new LogDaoBean(null, "登录", false));
+        }
+
+        Menu menu = mNavView.getMenu();
+        mItem = menu.findItem(R.id.nav_item_logout);
+
+
+        loginListener();
+
+        mSelect = LoginManager.mMySqlHelper().select();
+        LogDaoBean logDaoBean = mSelect.get(0);
+        mIsLogin = logDaoBean.getIsLogin();
+        String name = logDaoBean.getName();
+        Log.e("name", name);
+        if (mIsLogin == true) {
+            mLogin.setText(name + "");
+            mItem.setVisible(true);
+            mLogin.setClickable(false);
+        } else if (mIsLogin == false) {
+            mItem.setVisible(false);
+        }
+
+        EventBus.getDefault().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -94,16 +152,15 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                if(index==0){
+                if (index == 0) {
                     EventBus.getDefault().post("0");
-                }else if(index==1){
+                } else if (index == 1) {
                     EventBus.getDefault().post("1");
-                }else if(index==2){
+                } else if (index == 2) {
                     EventBus.getDefault().post("2");
-                }else if(index==3){
+                } else if (index == 3) {
                     EventBus.getDefault().post("3");
-                }else
-                if(index==4){
+                } else if (index == 4) {
                     EventBus.getDefault().post("4");
                 }
 
@@ -120,9 +177,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         initBottomNavigationView();
         initDrawerLayout();
-        View headerView = mNavView.getHeaderView(0);
-        mLogin = headerView.findViewById(R.id.nav_header_login_tv);
-        loginListener();
+
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment()).commit();
     }
 
@@ -170,13 +226,13 @@ public class MainActivity extends AppCompatActivity
                 usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
                 break;
             case R.id.action_search:
-                if(mSearchFragment==null){
+                if (mSearchFragment == null) {
                     mSearchFragment = new SearchFragment();
                 }
-                if(!isDestroyed()&&mSearchFragment.isAdded()){
+                if (!isDestroyed() && mSearchFragment.isAdded()) {
                     mSearchFragment.dismiss();
                 }
-                mSearchFragment.show(getSupportFragmentManager(),"SearchFragment");
+                mSearchFragment.show(getSupportFragmentManager(), "SearchFragment");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -189,36 +245,112 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         switch (id) {
             case R.id.nav_item_wan_android:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
-
+                mDesignBottomSheet.setVisibility(View.VISIBLE);
+                mFab.setVisibility(View.VISIBLE);
                 mCommonToolbarTitleTv.setText(getString(R.string.home_pager));
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_my_collect:
-
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_setting:
+                mDesignBottomSheet.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
                 mCommonToolbarTitleTv.setText(getString(R.string.setting));
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
                 fragmentTransaction.commit();
-
-
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_about_us:
 
                 break;
             case R.id.nav_item_logout:
-
+                logout();
                 break;
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+        //drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @SuppressLint("NewApi")
+    private void logout() {
+
+
+        View inflate = LayoutInflater.from(this).inflate(R.layout.common_alert_dialog, null);
+        Button ok = inflate.findViewById(R.id.dialog_btn);
+        Button on = inflate.findViewById(R.id.dialog_negative_btn);
+        mAlertDialog = new AlertDialog.Builder(this)
+                .setView(inflate)
+                .create();
+
+        mAlertDialog.show();
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exit();
+            }
+        });
+        on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog.dismiss();
+            }
+        });
+    }
+
+    private void exit() {
+        ApiServer loginServer = HttpManager.getInstance().getLoginServer();
+        loginServer.logout().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<LoginData>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(LoginData value) {
+                        mAlertDialog.dismiss();
+                        mDrawerLayout.openDrawer(Gravity.LEFT);
+                        SaveCookiesInterceptor.clearCookie(MainActivity.this);
+                        mSelect = new LoginManager().select();
+                        if (value.getErrorMsg().equals("")) {
+                            mItem.setVisible(false);
+                            mLogin.setClickable(true);
+                            LogDaoBean logDaoBean = mSelect.get(0);
+                            logDaoBean.setIsLogin(false);
+                            logDaoBean.setName("登录");
+                            LoginManager.mMySqlHelper().updata(logDaoBean);
+                            mSelect = LoginManager.mMySqlHelper().select();
+                            mLogin.setText(mSelect.get(0).getName());
+                            Intent intent = new Intent();
+                            intent.setClass(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
     private void initBottomNavigationView() {
         BottomNavigationViewHelper.disableShiftMode(mDesignBottomSheet);
@@ -227,24 +359,24 @@ public class MainActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
-                        index=0;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new HomePageFragment(),"0").commit();
+                        index = 0;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
                         break;
                     case R.id.tab_knowledge_hierarchy:
-                        index=1;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new KnowledgeHierarchyFragment()).commit();
+                        index = 1;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new KnowledgeHierarchyFragment()).commit();
                         break;
                     case R.id.tab_wx_article:
-                        index=2;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new VipcnFragment()).commit();
+                        index = 2;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new VipcnFragment()).commit();
                         break;
                     case R.id.tab_navigation:
-                        index=3;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,new NavigationFragment()).commit();
+                        index = 3;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new NavigationFragment()).commit();
                         break;
                     case R.id.tab_project:
-                        index=4;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,mItemsFragment,"4").commit();
+                        index = 4;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mItemsFragment, "4").commit();
                         break;
                     default:
                         break;
@@ -258,6 +390,7 @@ public class MainActivity extends AppCompatActivity
     private void initDrawerLayout() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @SuppressLint("NewApi")
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 //获取mDrawerLayout中的第一个子布局，也就是布局中的RelativeLayout
@@ -286,11 +419,12 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         mDrawerLayout.addDrawerListener(toggle);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Snackbar.make(mNavView,getString(R.string.double_click_exit_tint),Snackbar.LENGTH_SHORT)
+                Snackbar.make(mNavView, getString(R.string.double_click_exit_tint), Snackbar.LENGTH_SHORT)
                         .setActionTextColor(Color.parseColor("#049486"))
                         .setAction("知道了", new View.OnClickListener() {
                             @Override
@@ -307,5 +441,16 @@ public class MainActivity extends AppCompatActivity
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void login(String name) {
+        mLogin.setText(name);
+        mItem.setVisible(true);
+        mLogin.setClickable(false);
+        Log.e("name", name);
+
+
     }
 }

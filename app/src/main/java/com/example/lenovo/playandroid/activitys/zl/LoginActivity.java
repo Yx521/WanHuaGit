@@ -1,21 +1,32 @@
 package com.example.lenovo.playandroid.activitys.zl;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
+import com.example.lenovo.playandroid.beans.zl.LoginData;
+import com.example.lenovo.playandroid.dao.LogDaoBean;
+import com.example.lenovo.playandroid.dao.LoginManager;
 import com.example.lenovo.playandroid.presenter.zl.ZlPresenter;
 import com.example.lenovo.playandroid.view.zl.ZlView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +50,34 @@ public class LoginActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imp
 
     @Override
     public void BannerData(Object bannerdata) {
-
+//
     }
 
     @Override
     public void MainData(Object maindata) {
+//
+    }
+
+    @Override
+    public void Login(Object logindata) {
+        LoginData loginData = (LoginData) logindata;
+        if (loginData == null) {
+            return;
+        }
+        if (loginData.getErrorMsg().equals("账号密码不匹配")) {
+            Toast.makeText(this, loginData.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        } else if (loginData.getErrorMsg().equals("")) {
+            Toast.makeText(this, getString(R.string.oklogin), Toast.LENGTH_SHORT).show();
+            LoginManager.mMySqlHelper().updata(new LogDaoBean(1L, mUsername.getText().toString(), true));
+            EventBus.getDefault().postSticky(mUsername.getText().toString());
+            finish();
+        } else {
+            Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void Register(Object registerdata) {
 
     }
 
@@ -84,6 +118,7 @@ public class LoginActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imp
     }
 
 
+    @SuppressLint("NewApi")
     @OnClick({R.id.login, R.id.register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -91,6 +126,12 @@ public class LoginActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imp
                 judgingLogin();
                 break;
             case R.id.register:
+                @SuppressLint({"NewApi", "LocalSuppress"}) ActivityOptions options = ActivityOptions.makeScaleUpAnimation(mRegister,
+                        mRegister.getWidth() / 2,
+                        mRegister.getHeight() / 2,
+                        0,
+                        0);
+                startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
                 break;
         }
     }
@@ -106,22 +147,12 @@ public class LoginActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imp
                         public void onClick(View v) {
 
                         }
-                    })/*.setCallback(new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-
-                }
-            })*/.show();
+                    }).show();
+        } else {
+            mPresenter.login(mUsername.getText().toString(), mPassword.getText().toString());
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @Override
     public void onClick(View v) {

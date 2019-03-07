@@ -45,7 +45,7 @@
     <color name="light_green">#3fc75f</color>
 
     <color name="light_transparent">#00ffffff</color>
-
-
+    <color name="shallow_green">#FF36BC9B</color>
+    <color name="register_bac">#303c59</color>
 
 </resources>

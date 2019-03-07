@@ -14,6 +14,7 @@ import com.example.lenovo.playandroid.beans.yyj.Fuyong;
 import com.example.lenovo.playandroid.beans.yyj.sousuo;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
+import com.example.lenovo.playandroid.beans.zl.LoginData;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -102,4 +103,21 @@ public interface ApiServer {
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<Bean> getSearchListThree(@Path("page") int page, @Field("k") String k);
+
+    @POST("user/login")
+    @FormUrlEncoded
+    Observable<LoginData> getLoginData(@Field("username") String username, @Field("password") String password);
+
+    @POST("user/register")
+    @FormUrlEncoded
+    Observable<LoginData> getRegisterData(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+    /**
+     * 退出登录
+     * http://www.wanandroid.com/user/logout/json
+     *
+     * @return 登陆数据
+     */
+    @GET("user/logout/json")
+    Observable<LoginData> logout();
+
 }

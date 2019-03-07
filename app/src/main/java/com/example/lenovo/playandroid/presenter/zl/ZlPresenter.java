@@ -41,11 +41,30 @@ public class ZlPresenter<V extends ZlView> extends IBasePresenter<V> implements 
         mView.MainData(itemData);
     }
 
+    @Override
+    public void zlLoginData(Object logindata) {
+        mView.Login(logindata);
+    }
+
+    @Override
+    public void zlRegister(Object registerdata) {
+        mView.Register(registerdata);
+    }
+
     public void upwithItem(Object page) {
         mZlModule.zlgetItem(page, this);
     }
-    public void upwithsingle(int id , int page){
-        mZlModule.zlgetsingle(id,page,this);
+
+    public void upwithsingle(int id, int page) {
+        mZlModule.zlgetsingle(id, page, this);
+    }
+
+    public void login(String username, String password) {
+        mZlModule.zlLogin(username, password, this);
+    }
+
+    public void register(String username, String password, String repassword) {
+        mZlModule.zlRegister(username, password, repassword, this);
     }
 
 }

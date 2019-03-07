@@ -7,10 +7,17 @@ import com.example.lenovo.playandroid.utils.cache.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -53,12 +60,28 @@ public class HttpManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(getOkHttpClient())//缓存
+
                 .build();
         return retrofit.create(ApiServer.class);
     }
 
+
+    public ApiServer getLoginServer() {
+        Retrofit build = new Retrofit.Builder()
+                .baseUrl(Global.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(getLoginOkHttpClient())
+                .build();
+
+        return build.create(ApiServer.class);
+
+    }
+
     //缓存设置
     public OkHttpClient getOkHttpClient() {
+
+
         //缓存文件定义：缓存到当前项目的包路径下
         Cache cache = new Cache(new File(App.getApplication().getCacheDir(), "cache"), 1024 * 1024 * 10);
         //网络请求的Log的日志输出
@@ -71,6 +94,30 @@ public class HttpManager {
                 .writeTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
                 .cache(cache)//缓存路径
+                // .addInterceptor(httpLoggingInterceptor)//拦截器网络请求的Log的日志输出
+                .addInterceptor(myCacheinterceptor)//注册Application拦截器调用的是addInterceptor()
+                .addNetworkInterceptor(myCacheinterceptor)//注册Network拦截器 调用 addNetworkInterceptor() 来代替 addInterceptor():
+                .retryOnConnectionFailure(true)//启动错误重连
+                .build();
+    }
+
+    //缓存设置
+    public OkHttpClient getLoginOkHttpClient() {
+        //缓存文件定义：缓存到当前项目的包路径下
+
+        Cache cache = new Cache(new File(App.getApplication().getCacheDir(), "cache"), 1024 * 1024 * 10);
+        //网络请求的Log的日志输出
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        //缓存拦截器
+        MyCacheinterceptor myCacheinterceptor = new MyCacheinterceptor();
+        return new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .cache(cache)//缓存路径
+                .addInterceptor(new SaveCookiesInterceptor(App.sApp))
+                .addInterceptor(new AddCookiesInterceptor(App.sApp))
                 // .addInterceptor(httpLoggingInterceptor)//拦截器网络请求的Log的日志输出
                 .addInterceptor(myCacheinterceptor)//注册Application拦截器调用的是addInterceptor()
                 .addNetworkInterceptor(myCacheinterceptor)//注册Network拦截器 调用 addNetworkInterceptor() 来代替 addInterceptor():

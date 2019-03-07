@@ -1,8 +1,11 @@
 package com.example.lenovo.playandroid.module.zl;
 
+import android.util.Log;
+
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
+import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
 import com.example.lenovo.playandroid.http.RxUtils;
@@ -24,6 +27,34 @@ public class ZlModule {
         void zlBannerData(Object data);
 
         void zlItemData(Object itemData);
+
+        void zlLoginData(Object logindata);
+
+        void zlRegister(Object registerdata);
+    }
+
+    public void zlLogin(String username, String password, final FinishData finishData) {
+        HttpManager.getInstance().getLoginServer().getLoginData(username, password)
+                .compose(RxUtils.<LoginData>rxOBserableSchedulerHelper())
+                .subscribe(new BaseObserver<LoginData>(finishData) {
+                    @Override
+                    public void onNext(LoginData value) {
+                        finishData.zlLoginData(value);
+
+                    }
+                });
+    }
+
+    public void zlRegister(String username, String password, String repassword, final FinishData finishData) {
+        HttpManager.getInstance().getLoginServer().getRegisterData(username, password, repassword)
+                .compose(RxUtils.<LoginData>rxOBserableSchedulerHelper())
+                .subscribe(new BaseObserver<LoginData>(finishData) {
+                    @Override
+                    public void onNext(LoginData value) {
+                        finishData.zlRegister(value);
+                    }
+                });
+
     }
 
     /**

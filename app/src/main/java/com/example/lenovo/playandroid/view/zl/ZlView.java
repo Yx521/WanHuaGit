@@ -8,7 +8,11 @@ import com.example.lenovo.playandroid.base.view.BaseView;
  */
 
 public interface ZlView extends BaseView {
-   void BannerData(Object bannerdata);
+    void BannerData(Object bannerdata);
 
     void MainData(Object maindata);
+
+    void Login(Object logindata);
+
+    void Register(Object registerdata);
 }

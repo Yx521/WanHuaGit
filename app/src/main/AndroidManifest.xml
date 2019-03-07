@@ -3,7 +3,7 @@
     package="com.example.lenovo.playandroid">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.App"
@@ -31,13 +31,13 @@
         <activity android:name=".activitys.zl.SuperChapterNameActivity" />
         <activity android:name=".activitys.zl.LoginActivity" />
         <activity android:name=".activitys.yx.WebViewActivity" />
-        <activity android:name=".activitys.yx.SearchListActivity"
-            />
+        <activity android:name=".activitys.yx.SearchListActivity" />
         <activity android:name=".activitys.wx.Multiplexing" />
         <activity android:name=".activitys.wx.Details" />
         <activity android:name=".activitys.yyj.XiaActivity" />
         <activity android:name=".activitys.yyj.XinaActivity" />
-        <activity android:name=".activitys.yyj.RegardActivity"/>
+        <activity android:name=".activitys.yyj.RegardActivity" />
+        <activity android:name=".activitys.zl.RegisterActivity" />
     </application>
 
 </manifest>

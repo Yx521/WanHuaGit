@@ -7,7 +7,7 @@ import android.app.Application;
  */
 
 public class App extends Application {
-    private static App sApp;
+    public static App sApp;
 
     @Override
     public void onCreate() {

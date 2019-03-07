@@ -60,6 +60,16 @@ public class WebActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imple
     }
 
     @Override
+    public void Login(Object logindata) {
+        //
+    }
+
+    @Override
+    public void Register(Object registerdata) {
+//
+    }
+
+    @Override
     public void showError(String error) {
 
     }

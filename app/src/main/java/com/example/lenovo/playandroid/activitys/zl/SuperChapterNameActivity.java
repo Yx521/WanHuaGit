@@ -80,6 +80,16 @@ public class SuperChapterNameActivity extends BaseActivity<ZlView, ZlPresenter<Z
     }
 
     @Override
+    public void Login(Object logindata) {
+        //
+    }
+
+    @Override
+    public void Register(Object registerdata) {
+//
+    }
+
+    @Override
     public void showError(String error) {
 
     }

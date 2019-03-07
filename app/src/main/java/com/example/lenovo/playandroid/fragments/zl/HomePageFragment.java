@@ -171,11 +171,24 @@ public class HomePageFragment extends BaseFragment<ZlView, ZlPresenter<ZlView>> 
     @Override
     public void MainData(Object maindata) {
         //关闭刷新或加载视图
-        mRefreshLayout.finishLoadMore(100);
-        mRefreshLayout.finishRefresh(100);
-        FeedArticleListData feedArticleListData = (FeedArticleListData) maindata;
-        mZlRecycAdapter.addData(feedArticleListData.getData().getDatas());
+        if (maindata!=null){
+            mRefreshLayout.finishLoadMore(100);
+            mRefreshLayout.finishRefresh(100);
+            FeedArticleListData feedArticleListData = (FeedArticleListData) maindata;
+            mZlRecycAdapter.addData(feedArticleListData.getData().getDatas());
 
+        }
+
+    }
+
+    @Override
+    public void Login(Object logindata) {
+        //
+    }
+
+    @Override
+    public void Register(Object registerdata) {
+//
     }
 
 

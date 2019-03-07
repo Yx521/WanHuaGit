@@ -117,6 +117,7 @@ public class UsageDialogFragment extends BaseDialogFragment<IView, UsefulSitesPr
         //DialogSearch的宽
         int width = (int) (metrics.widthPixels * 0.98);
         assert window != null;
+
         window.setLayout(width, WindowManager.LayoutParams.MATCH_PARENT);
         window.setGravity(Gravity.TOP);
         //取消过渡动画 , 使DialogSearch的出现更加平滑
