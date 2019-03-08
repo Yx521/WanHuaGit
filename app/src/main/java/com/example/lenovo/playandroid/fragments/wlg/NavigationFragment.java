@@ -82,7 +82,7 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
 
     @Override
     public void shouNaviBean(final NaviBean naviBean) {
-        Log.e("wlg导航", "shouNaviBean: " + naviBean);
+        Log.i("wlg导航", "shouNaviBean: " + naviBean);
         mData = naviBean.getData();
 
 

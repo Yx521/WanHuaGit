@@ -94,7 +94,6 @@ dependencies {
 
     implementation 'org.greenrobot:greendao:3.2.2'
 
-
     //最新版本 Banner:
     implementation 'com.youth.banner:banner:1.4.10'
     //webView

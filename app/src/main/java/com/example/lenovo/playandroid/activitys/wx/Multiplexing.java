@@ -1,5 +1,6 @@
 package com.example.lenovo.playandroid.activitys.wx;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -18,7 +19,9 @@ import com.example.lenovo.playandroid.presenter.wx.PresenterX;
 import com.example.lenovo.playandroid.view.yx.IView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,26 +41,32 @@ public class Multiplexing extends BaseActivity<IView, PresenterX<IView>> impleme
     private List<String> mStringList = new ArrayList<>();
     private List<Fragment> mFragmentList = new ArrayList<>();
     private Knadapter knadapter;
+    private int page = 0;
 
     @Override
     public void show(Object o) {
-        Re re = (Re) o;
-        Log.i("baga",re.getData().getDatas().get(0).getChapterName());
+        Map<String,Object> map1 = (Map<String, Object>) o;
+        String biao = (String) map1.get("biao");
+        if("one".equals(biao)){
+            Re re = (Re) map1.get("va");
+            // Log.i("baga",re.getData().getDatas().get(0).getChapterName());
 
-        List<Batree.DataBean.ChildrenBean> list = (List<Batree.DataBean.ChildrenBean>) getIntent().getSerializableExtra("list");
-          shujulist.addAll(list);
+            List<Batree.DataBean.ChildrenBean> list = (List<Batree.DataBean.ChildrenBean>) getIntent().getSerializableExtra("list");
+            shujulist.addAll(list);
 
-        for (int i = 0; i < shujulist.size(); i++) {
-            mStringList.add(shujulist.get(i).getName());
-            mFragmentList.add(ReFragment.fuyong(shujulist.get(i).getId()));
+            for (int i = 0; i < shujulist.size(); i++) {
+                mStringList.add(shujulist.get(i).getName());
+                mFragmentList.add(ReFragment.fuyong(shujulist.get(i).getId()));
+            }
+
+
+            knadapter = new Knadapter(getSupportFragmentManager(),mStringList,mFragmentList);
+            vp.setAdapter(knadapter);
+            tab.setupWithViewPager(vp);
+
+            multText.setText(getIntent().getStringExtra("string"));
         }
 
-
-        knadapter = new Knadapter(getSupportFragmentManager(),mStringList,mFragmentList);
-        vp.setAdapter(knadapter);
-        tab.setupWithViewPager(vp);
-
-       multText.setText(getIntent().getStringExtra("string"));
     }
 
     @Override
@@ -68,7 +77,14 @@ public class Multiplexing extends BaseActivity<IView, PresenterX<IView>> impleme
 
     @Override
     protected void initEventAndData() {
-        mPresenter.WDataP(0,60);
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id", 0);
+        Log.i("yangxu", "initEventAndData: "+id);
+        Map<String,Object> map = new HashMap<>();
+        map.put("page",page);
+        map.put("cid",id);
+        map.put("biao","one");
+        mPresenter.WDataP(map);
 
     }
 

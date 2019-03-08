@@ -37,6 +37,7 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
 import com.example.lenovo.playandroid.dao.LoginManager;
+import com.example.lenovo.playandroid.fragments.wx.ShouCangFragment;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
 import com.example.lenovo.playandroid.activitys.zl.LoginActivity;
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         LogDaoBean logDaoBean = mSelect.get(0);
         mIsLogin = logDaoBean.getIsLogin();
         String name = logDaoBean.getName();
-        Log.e("name", name);
+        Log.i("name", name);
         if (mIsLogin == true) {
             mLogin.setText(name + "");
             mItem.setVisible(true);
@@ -256,6 +257,9 @@ public class MainActivity extends AppCompatActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_my_collect:
+                mDesignBottomSheet.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new ShouCangFragment()).commit();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_setting:

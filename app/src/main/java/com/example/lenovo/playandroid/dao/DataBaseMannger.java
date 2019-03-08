@@ -11,6 +11,7 @@ import java.util.List;
 public class DataBaseMannger {
     public static DataBaseMannger sDataBaseMannger;
     private final HistoryDataDao mHistoryDataDao;
+    private final CanDataDao canDataDao;
 
     //单例模式
     public static DataBaseMannger getIntrance() {
@@ -29,6 +30,7 @@ public class DataBaseMannger {
         DaoMaster daoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         mHistoryDataDao = daoSession.getHistoryDataDao();
+        canDataDao = daoSession.getCanDataDao();
     }
 
     //查询
@@ -36,13 +38,26 @@ public class DataBaseMannger {
         return mHistoryDataDao.queryBuilder().list();
     }
 
+    //查询
+    public List<CanData> selectCan() {
+        return canDataDao.queryBuilder().list();
+    }
+
     //添加
     public void insert(HistoryData list) {
         mHistoryDataDao.insertInTx(list);
     }
 
+    public void insertCan(CanData list) {
+        canDataDao.insertInTx(list);
+    }
+
     //删除
     public void deleteAll() {
         mHistoryDataDao.deleteAll();
+    }
+    //删除
+    public void deleteCan(CanData bean){
+        canDataDao.delete(bean);
     }
 }

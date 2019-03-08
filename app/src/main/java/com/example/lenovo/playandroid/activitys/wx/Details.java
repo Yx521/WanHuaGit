@@ -2,8 +2,6 @@ package com.example.lenovo.playandroid.activitys.wx;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,21 +14,21 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lenovo.playandroid.R;
-import com.example.lenovo.playandroid.activitys.zl.LoginActivity;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
+import com.example.lenovo.playandroid.beans.wx.Data;
+import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.yx.Collect;
+import com.example.lenovo.playandroid.dao.CanData;
+import com.example.lenovo.playandroid.dao.DataBaseMannger;
 import com.example.lenovo.playandroid.presenter.wx.PresenterXin;
 import com.example.lenovo.playandroid.view.yx.IView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit2.http.Url;
 
 public class Details extends BaseActivity<IView,PresenterXin<IView>> implements IView,View.OnClickListener {
 
@@ -44,6 +42,8 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
     private String url;
     private int id;
     private String author;
+    private int originId;
+    private int id1;
 
 
     @Override
@@ -64,7 +64,16 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
         details_text.setText(title);
         xin_img.setOnClickListener(this);
         bu_img.setOnClickListener(this);
-
+        List<CanData> canData = DataBaseMannger.getIntrance().selectCan();
+        if(canData.size()!=0){
+            for (int i = 0; i < canData.size(); i++) {
+                if(canData.get(i).getTitle().equals(title)&&canData.get(i).getAuthor().equals(author)
+                        &&canData.get(i).getLink().equals(url)){
+                    xin_img.setVisibility(View.GONE);
+                    bu_img.setVisibility(View.VISIBLE);
+                }
+            }
+        }
         tool.setTitle("");
         setSupportActionBar(tool);
         detailsWebview = findViewById(R.id.details_webview);
@@ -103,12 +112,25 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
                 map.put("t",title);
                 map.put("a",author);
                 map.put("l",url);
+                map.put("id",id);
+                map.put("biao","shou");
                 mPresenter.FishData(map);
+                DataBaseMannger.getIntrance().insertCan(new CanData(null,title,author,url,true));
                 break;
             case R.id.bu_img:
                 xin_img.setVisibility(View.VISIBLE);
                 bu_img.setVisibility(View.GONE);
-
+                Map<String,Object> map1 = new HashMap<>();
+                map1.put("biao","shou1");
+                mPresenter.FishData(map1);
+                List<CanData> canData = DataBaseMannger.getIntrance().selectCan();
+                for (int i = 0; i < canData.size(); i++) {
+                    if(canData.get(i).getTitle().equals(title)&&canData.get(i).getAuthor().equals(author)
+                            &&canData.get(i).getLink().equals(url)){
+                        Long id = canData.get(i).getId();
+                        DataBaseMannger.getIntrance().deleteCan(new CanData(id,null,null,null,null));
+                    }
+                }
                 break;
         }
     }
@@ -162,9 +184,44 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
 
     @Override
     public void show(Object o) {
-        Collect collect = (Collect) o;
-        int errorCode = collect.getErrorCode();
-        Log.i("yangxu", "show: "+errorCode );
+        Map<String,Object> map = (Map<String, Object>) o;
+        String biao = (String) map.get("biao");
+        if("shou".equals(biao)){
+            Collect collect = (Collect) map.get("va");
+            int errorCode = collect.getErrorCode();
+            Log.i("yangxu", "show: "+errorCode );
+
+            if (errorCode==0){
+                Toast.makeText(mActivity,"收藏成功",Toast.LENGTH_SHORT).show();
+
+            }else{
+                Toast.makeText(mActivity,"收藏失败",Toast.LENGTH_SHORT).show();
+            }
+        }else if("shan".equals(biao)){
+            HttpResult collect = (HttpResult) map.get("va");
+            int errorCode = collect.getErrorCode();
+            if (errorCode==0){
+                Toast.makeText(mActivity,"删除成功",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(mActivity,"删除失败",Toast.LENGTH_SHORT).show();
+            }
+        }else if("shou1".equals(biao)){
+            Data data = (Data) map.get("va");
+            List<Data.DataBean.DatasBean> datas = data.getData().getDatas();
+            for (int i = 0; i < datas.size(); i++) {
+                if(title.equals(datas.get(i).getTitle())){
+                    id1 = datas.get(i).getId();
+                    originId = datas.get(i).getOriginId();
+                }
+            }
+            Map<String,Object> map1 = new HashMap<>();
+            map1.put("biao","shan");
+            map1.put("id",id1);
+            map1.put("originId",originId);
+            Log.i("yangxu", originId+"onClick: "+id1);
+            mPresenter.FishData(map1);
+        }
+
     }
 
     @Override

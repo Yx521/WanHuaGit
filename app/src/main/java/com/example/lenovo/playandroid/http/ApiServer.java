@@ -3,6 +3,8 @@ package com.example.lenovo.playandroid.http;
 
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
 import com.example.lenovo.playandroid.beans.wx.Batree;
+import com.example.lenovo.playandroid.beans.wx.Data;
+import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.wx.Re;
 import com.example.lenovo.playandroid.beans.TopSearchData;
 import com.example.lenovo.playandroid.beans.yx.Collect;
@@ -120,11 +122,20 @@ public interface ApiServer {
      */
     @GET("user/logout/json")
     Observable<LoginData> logout();
-
+  /*内*/
     @POST("lg/collect/{id}/json")
     Observable<Collect> getCollect(@Path("id") int id);
 
+    /*外*/
     @POST("lg/collect/add/json")
     @FormUrlEncoded
-    Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
+    Observable<Collect> getWaiCollect(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+
+    @GET("lg/collect/list/0/json")
+    Observable<Data> getData();
+
+    @POST("lg/uncollect/{id}/json")
+    @FormUrlEncoded
+    Observable<HttpResult> getCancelCollect(@Path("id") int id,@Field("originId") int originId);
+
 }

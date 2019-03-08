@@ -102,6 +102,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<IView, WxPresenter<
                 Intent intent = new Intent(getActivity(), Multiplexing.class);
                 intent.putExtra("list", (Serializable) children);
                 intent.putExtra("string", list.get(id).getName());
+                intent.putExtra("id",children.get(id).getId());
                 startActivity(intent);
             }
 
