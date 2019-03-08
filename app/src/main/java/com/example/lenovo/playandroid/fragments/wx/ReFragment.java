@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.activitys.wx.Details;
+import com.example.lenovo.playandroid.activitys.yyj.XiaActivity;
 import com.example.lenovo.playandroid.adapter.wx.Readapter;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
 import com.example.lenovo.playandroid.base.fragment.BaseFragment;
@@ -107,10 +108,16 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
         //跳转
         readapter.setOnCk(new Readapter.OnCk() {
             @Override
-            public void show(String title, String url) {
-                Intent intent=new Intent(getActivity(),Details.class);
+            public void show(View view, int position, List<Re.DataBean.DatasBean> list) {
+                Intent intent = new Intent(getContext(),Details.class);
+                String title = list.get(position).getTitle();
+                String link = list.get(position).getLink();
+                String author = list.get(position).getAuthor();
+                int id = list.get(position).getId();
+                intent.putExtra("id",id);
                 intent.putExtra("title",title);
-                intent.putExtra("url",url);
+                intent.putExtra("url",link);
+                intent.putExtra("author",author);
                 startActivity(intent);
             }
         });

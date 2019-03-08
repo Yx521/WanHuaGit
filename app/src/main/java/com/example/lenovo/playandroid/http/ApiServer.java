@@ -5,6 +5,7 @@ import com.example.lenovo.playandroid.beans.wlg.NaviBean;
 import com.example.lenovo.playandroid.beans.wx.Batree;
 import com.example.lenovo.playandroid.beans.wx.Re;
 import com.example.lenovo.playandroid.beans.TopSearchData;
+import com.example.lenovo.playandroid.beans.yx.Collect;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.beans.yx.SearchList;
@@ -120,4 +121,10 @@ public interface ApiServer {
     @GET("user/logout/json")
     Observable<LoginData> logout();
 
+    @POST("lg/collect/{id}/json")
+    Observable<Collect> getCollect(@Path("id") int id);
+
+    @POST("lg/collect/add/json")
+    @FormUrlEncoded
+    Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
 }

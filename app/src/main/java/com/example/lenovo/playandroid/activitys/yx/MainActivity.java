@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity
                     public void onNext(LoginData value) {
                         mAlertDialog.dismiss();
                         mDrawerLayout.openDrawer(Gravity.LEFT);
-                        SaveCookiesInterceptor.clearCookie(MainActivity.this);
+                     SaveCookiesInterceptor.clearCookie(MainActivity.this);
                         mSelect = new LoginManager().select();
                         if (value.getErrorMsg().equals("")) {
                             mItem.setVisible(false);

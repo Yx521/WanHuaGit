@@ -2,35 +2,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.lenovo.playandroid.activitys.wx.Details">
-    <RelativeLayout
+
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#00ABF0">
-        <ImageView
-            android:id="@+id/details_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_arrow_back"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"/>
-        <TextView
-            android:id="@+id/details_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_18"
-            android:textColor="#FFFFFF"
-            android:layout_centerInParent="true"/>
+        android:layout_height="@dimen/dp_50"
+        android:background="#bc24c1ec">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_arrow_back_white_24dp" />
+
+            <TextView
+                android:id="@+id/details_text"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/dp_17"
+                android:layout_width="@dimen/dp_210"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_33"
+                android:layout_marginTop="@dimen/dp_14"
+                android:ellipsize="end"
+                android:maxLines="1" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/xin_img"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/dp_260"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@mipmap/ic_toolbar_like_n" />
+                <ImageView
+                    android:id="@+id/bu_img"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_260"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@mipmap/ic_toolbar_like_p" />
+            </LinearLayout>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:progressDrawable="@drawable/pg"
+        android:visibility="gone" />
+
     <WebView
         android:id="@+id/details_webview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"></WebView>
+        android:layout_height="match_parent"></WebView>
+
+
 </LinearLayout>

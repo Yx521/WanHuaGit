@@ -26,7 +26,7 @@ import com.example.lenovo.playandroid.R;
 
 public class XiaActivity extends AppCompatActivity implements View.OnClickListener {
 
-private String aa;
+   private String aa;
     private WebView web1;
     private ImageView fan;
     private ImageView xi;

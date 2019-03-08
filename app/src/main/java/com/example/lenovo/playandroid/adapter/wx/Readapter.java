@@ -45,7 +45,7 @@ public class Readapter extends RecyclerView.Adapter<Readapter.Holder>{
              holder.itemView.setOnClickListener(new View.OnClickListener() {
                  @Override
               public void onClick(View v) {
-                 onCk.show(list.get(position).getTitle(),list.get(position).getLink());
+                 onCk.show(v,position,list);
                  }
             });
 
@@ -83,7 +83,7 @@ public class Readapter extends RecyclerView.Adapter<Readapter.Holder>{
     }
 
     public interface OnCk{
-          void show(String title,String url);
+          void show(View view,int position,List<Re.DataBean.DatasBean> list);
     }
 }
 
