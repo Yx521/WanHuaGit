@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.wlg.ArticleDetailActivity" />
+        <activity android:name=".activitys.wlg.ArticleDetailActivity"></activity>
         <activity
             android:name=".activitys.zl.WebActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,6 +40,9 @@
         <activity android:name=".activitys.yyj.CollectionActivity"></activity>
 
         <activity android:name=".activitys.zl.RegisterActivity" />
+
+        <activity android:name=".activitys.wlg.AboutActivity"></activity>
+
     </application>
 
 </manifest>

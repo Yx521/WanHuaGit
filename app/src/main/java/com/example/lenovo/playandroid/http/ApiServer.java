@@ -124,6 +124,7 @@ public interface ApiServer {
     Observable<LoginData> logout();
     //取消收藏
   /*内*/
+
     @POST("lg/collect/{id}/json")
     Observable<Collect> getCollect(@Path("id") int id);
 
@@ -134,6 +135,28 @@ public interface ApiServer {
     Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
     // 收藏文章列表
     //http://www.wanandroid.com/lg/collect/list/0/json
+
+
+    @POST("lg/uncollect_originId/{id}/json")
+
+    Observable<Collect> cancelCollectArticle(@Path("id") int id);
+
+
+
+
+    /**
+     * 取消站内文章
+     * http://www.wanandroid.com/lg/uncollect_originId/2333/json
+     *
+     * @param id article id
+     * @param originId origin id
+     * @return 取消站内文章数据
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    @FormUrlEncoded
+    Observable<HttpResult> cancelCollectPageArticle(@Path("id") int id, @Field("originId") int originId);
+
+
 
 
     @GET("lg/collect/list/0/json")

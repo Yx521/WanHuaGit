@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,10 @@ public class ShouCangFragment extends BaseFragment<IView, PresenterShou<IView>> 
         String biao = (String) map.get("biao");
         if("shou".equals(biao)){
             Data data = (Data) map.get("va");
+            for (int i = 0; i < data.getData().getDatas().size(); i++) {
+                Log.e("data",data.getData().getDatas().get(i).getOriginId()+"");
+                Log.e("data",data.getData().getDatas().get(i).getId()+"");
+            }
             if(data.getErrorCode()==0){
                 List<Data.DataBean.DatasBean> datas = data.getData().getDatas();
                 collectAdapter.addData(datas);

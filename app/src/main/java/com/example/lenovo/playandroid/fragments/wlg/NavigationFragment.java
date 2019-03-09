@@ -16,6 +16,7 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.adapter.wlg.NaviAdapter;
 import com.example.lenovo.playandroid.base.fragment.BaseFragment;
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
+import com.example.lenovo.playandroid.beans.yx.Collect;
 import com.example.lenovo.playandroid.presenter.wlg.WlgNaviPresenter;
 import com.example.lenovo.playandroid.view.wlg.WlgNaviView;
 
@@ -120,10 +121,22 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
         setChildViewVisibility(View.VISIBLE);
 
         mNaviAdapter.replaceData(mData);
+        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
         mNaviAdapter.openLoadAnimation(5);
         leftRightLinkage();
 
     }
+
+    @Override
+    public void shouCollect(Collect collect) {
+
+    }
+
+    @Override
+    public void shouunCollect(Collect collect) {
+
+    }
+
     private void leftRightLinkage() {
         xlvNavi.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

@@ -23,6 +23,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
 
 
         }
@@ -55,6 +56,26 @@ android {
         // 防止在发布的时候出现因MissingTranslation导致Build Failed!
         disable 'MissingTranslation'
     }
+ /*   signingConfigs {
+        debug {
+            // signingConfig signingConfigs.debug 添加到release
+            //jks路径
+            storeFile file('wananzhuo.jks')
+            //密码
+            storePassword "123456"
+            //账号
+            keyAlias "key0"
+            //密码
+            keyPassword "123456"
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }*/
+
 }
 
 

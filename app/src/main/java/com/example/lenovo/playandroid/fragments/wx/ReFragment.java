@@ -146,7 +146,6 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
 
     @Override
     protected void initData() {
-
         Bundle bundle = getArguments();
         id = bundle.getInt("int");
         Log.i("yangxu", id +"");
@@ -175,7 +174,7 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
                 intent.putExtra("title",title);
                 intent.putExtra("url",link);
                 intent.putExtra("author",author);
-                startActivity(intent);
+                startActivityForResult(intent,11);
             }
         });
 
@@ -218,16 +217,11 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==11&&resultCode==12){
+            initData();
+        }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 }

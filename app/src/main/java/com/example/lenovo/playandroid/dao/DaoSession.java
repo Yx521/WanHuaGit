@@ -10,11 +10,13 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.example.lenovo.playandroid.dao.HistoryData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
+import com.example.lenovo.playandroid.dao.IsLikeDaoBean;
 import com.example.lenovo.playandroid.dao.CanData;
 import com.example.lenovo.playandroid.dao.ShanData;
 
 import com.example.lenovo.playandroid.dao.HistoryDataDao;
 import com.example.lenovo.playandroid.dao.LogDaoBeanDao;
+import com.example.lenovo.playandroid.dao.IsLikeDaoBeanDao;
 import com.example.lenovo.playandroid.dao.CanDataDao;
 import com.example.lenovo.playandroid.dao.ShanDataDao;
 
@@ -29,11 +31,13 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig historyDataDaoConfig;
     private final DaoConfig logDaoBeanDaoConfig;
+    private final DaoConfig isLikeDaoBeanDaoConfig;
     private final DaoConfig canDataDaoConfig;
     private final DaoConfig shanDataDaoConfig;
 
     private final HistoryDataDao historyDataDao;
     private final LogDaoBeanDao logDaoBeanDao;
+    private final IsLikeDaoBeanDao isLikeDaoBeanDao;
     private final CanDataDao canDataDao;
     private final ShanDataDao shanDataDao;
 
@@ -47,6 +51,9 @@ public class DaoSession extends AbstractDaoSession {
         logDaoBeanDaoConfig = daoConfigMap.get(LogDaoBeanDao.class).clone();
         logDaoBeanDaoConfig.initIdentityScope(type);
 
+        isLikeDaoBeanDaoConfig = daoConfigMap.get(IsLikeDaoBeanDao.class).clone();
+        isLikeDaoBeanDaoConfig.initIdentityScope(type);
+
         canDataDaoConfig = daoConfigMap.get(CanDataDao.class).clone();
         canDataDaoConfig.initIdentityScope(type);
 
@@ -55,11 +62,13 @@ public class DaoSession extends AbstractDaoSession {
 
         historyDataDao = new HistoryDataDao(historyDataDaoConfig, this);
         logDaoBeanDao = new LogDaoBeanDao(logDaoBeanDaoConfig, this);
+        isLikeDaoBeanDao = new IsLikeDaoBeanDao(isLikeDaoBeanDaoConfig, this);
         canDataDao = new CanDataDao(canDataDaoConfig, this);
         shanDataDao = new ShanDataDao(shanDataDaoConfig, this);
 
         registerDao(HistoryData.class, historyDataDao);
         registerDao(LogDaoBean.class, logDaoBeanDao);
+        registerDao(IsLikeDaoBean.class, isLikeDaoBeanDao);
         registerDao(CanData.class, canDataDao);
         registerDao(ShanData.class, shanDataDao);
     }
@@ -67,6 +76,7 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         historyDataDaoConfig.clearIdentityScope();
         logDaoBeanDaoConfig.clearIdentityScope();
+        isLikeDaoBeanDaoConfig.clearIdentityScope();
         canDataDaoConfig.clearIdentityScope();
         shanDataDaoConfig.clearIdentityScope();
     }
@@ -77,6 +87,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public LogDaoBeanDao getLogDaoBeanDao() {
         return logDaoBeanDao;
+    }
+
+    public IsLikeDaoBeanDao getIsLikeDaoBeanDao() {
+        return isLikeDaoBeanDao;
     }
 
     public CanDataDao getCanDataDao() {

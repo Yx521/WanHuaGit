@@ -16,6 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
+import com.example.lenovo.playandroid.dao.IsLikeDaoBean;
+import com.example.lenovo.playandroid.dao.IsLikeManager;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -44,6 +46,9 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
     private OnClickListener mListener;
     private OnBannerListener mBannerListener;
     private onTooTextAndTabText mOnTooTextAndTabText;
+    public static int Like;
+    private jumpFive mJumpFive;
+    private data datas;
 
     public ZlRecycAdapter(ArrayList<BannerBean.DataBean> dataBeans, ArrayList<FeedArticleListData.DataBean.DatasBean> beans) {
         this.mBannerData = dataBeans;
@@ -99,6 +104,7 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
 
         } else {
             final ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.setIsRecyclable(false);
             if (mData.get(position).getSuperChapterName().contains("开源项目") && mData.get(position).getNiceDate().contentEquals("小时前")) {
                 viewHolder.mItemSearchPagerTagRedTv.setVisibility(View.VISIBLE);
                 viewHolder.mItemSearchPagerTagRedTv.setText(R.string.project);
@@ -117,6 +123,13 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
             viewHolder.mItemSearchPagerAuthor.setText(mData.get(position).getAuthor());
             viewHolder.mItemSearchPagerChapterName.setText(mData.get(position).getSuperChapterName() + " / " + mData.get(position).getChapterName());
             viewHolder.mItemSearchPagerNiceDate.setText(mData.get(position).getNiceDate());
+            List<IsLikeDaoBean> select = IsLikeManager.mMySqlHelper().select();
+            for (int i = 0; i < select.size(); i++) {
+                ;
+                if (select.get(i).getUrl().equals(mData.get(position).getLink())) {
+                    viewHolder.mItemSearchPagerLikeIv.setImageResource(R.drawable.icon_like);
+                }
+            }
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,10 +143,31 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
             viewHolder.mItemSearchPagerChapterName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnTooTextAndTabText.TooTextAndTabText(mData.get(position).getChapterName(), mData.get(position).getSuperChapterName(),mData.get(position).getChapterId());
+                    mOnTooTextAndTabText.TooTextAndTabText(mData.get(position).getChapterName(), mData.get(position).getSuperChapterName(), mData.get(position).getChapterId());
                 }
             });
+
+            viewHolder.mItemSearchPagerTagRedTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mJumpFive.setClick(v);
+                }
+            });
+            viewHolder.mItemSearchPagerLikeIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            viewHolder.mItemSearchPagerLikeIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    datas.data(mData.get(position).getLink(), mData.get(position).getTitle(), mData.get(position).getAuthor(),v,position);
+                }
+            });
+
         }
+
 
     }
 
@@ -164,6 +198,7 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
         }
 
     }
+
 
     static class HeadViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.banner)
@@ -234,5 +269,21 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
 
     public void setOnTooTextAndTabText(onTooTextAndTabText onTooTextAndTabText) {
         this.mOnTooTextAndTabText = onTooTextAndTabText;
+    }
+
+    public interface jumpFive {
+        void setClick(View view);
+    }
+
+    public void setJumpFive(jumpFive jumpFive) {
+        this.mJumpFive = jumpFive;
+    }
+
+    public interface data {
+        void data(String url, String title, String author, View view, int position);
+    }
+
+    public void setData(data data) {
+        this.datas = data;
     }
 }

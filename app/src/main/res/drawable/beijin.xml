@@ -21,7 +21,7 @@
     angle:方向角度,等于0时,从左到右,然后逆时针方向转,当angle = 90度时从下往上 type:设置渐变的类型-->
     <gradient
         android:angle="270"
-        android:endColor="#F5F0F0"
-        android:startColor="#F5F0F0"
+        android:endColor="#00dddd"
+        android:startColor="#dddd"
         android:type="linear"/>
 </shape>

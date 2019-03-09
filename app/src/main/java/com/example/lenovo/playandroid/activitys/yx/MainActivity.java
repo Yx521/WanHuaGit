@@ -37,6 +37,7 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
 import com.example.lenovo.playandroid.dao.LoginManager;
+import com.example.lenovo.playandroid.activitys.wlg.AboutActivity;
 import com.example.lenovo.playandroid.fragments.wx.ShouCangFragment;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
@@ -67,9 +68,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,6 +95,7 @@ public class MainActivity extends AppCompatActivity
     private SearchFragment mSearchFragment;
     private TextView mLogin;
     private long exitTime;
+    private FragmentManager mSupportFragmentManager;
 
     private MenuItem mItem;
     private List<LogDaoBean> mSelect;
@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
+
     }
 
     @Override
@@ -266,13 +267,15 @@ public class MainActivity extends AppCompatActivity
                 mDesignBottomSheet.setVisibility(View.GONE);
                 mFab.setVisibility(View.GONE);
                 mCommonToolbarTitleTv.setText(getString(R.string.setting));
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                mSupportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
                 fragmentTransaction.commit();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_about_us:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.nav_item_logout:
@@ -325,7 +328,8 @@ public class MainActivity extends AppCompatActivity
                     public void onNext(LoginData value) {
                         mAlertDialog.dismiss();
                         mDrawerLayout.openDrawer(Gravity.LEFT);
-                     SaveCookiesInterceptor.clearCookie(MainActivity.this);
+                        SaveCookiesInterceptor.clearCookie(MainActivity.this);
+
                         mSelect = new LoginManager().select();
                         if (value.getErrorMsg().equals("")) {
                             mItem.setVisible(false);
@@ -454,7 +458,5 @@ public class MainActivity extends AppCompatActivity
         mItem.setVisible(true);
         mLogin.setClickable(false);
         Log.e("name", name);
-
-
     }
 }
