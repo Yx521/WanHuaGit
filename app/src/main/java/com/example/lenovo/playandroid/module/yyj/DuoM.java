@@ -17,7 +17,7 @@ public class DuoM {
         void setSoul(Bean soul);
     }
 
-    //复用
+    //FackFragment子条目
     public void getFuyongl(final DuoM.HttpQing httpQing, String num, String page) {
         httpQing.setAnimation();
         HttpManager.getInstance().getServer().getBean(num, page)

@@ -23,6 +23,7 @@ public class ModuleXin {
     public interface FishCallBase<V> extends HttpFinishCallBack {
         //向P层传输数据
         void wxData(V data);
+        void Cancel(V data);
     }
 
     public void wxgetData(Object obj, final FishCallBase fish) {
@@ -83,5 +84,21 @@ public class ModuleXin {
         }
 
 
+    }
+    public void CancelData(Object obj, final FishCallBase fish,int id) {
+
+        fish.setAnimation();
+
+
+
+        HttpManager.getInstance().getLoginServer().getCollect(id)
+                .compose(RxUtils.<Collect>rxOBserableSchedulerHelper())
+                .subscribe(new BaseObserver<Collect>(fish) {
+                    @Override
+                    public void onNext(Collect value) {
+                        fish.Cancel(value);
+                        fish.setHidoAnimation();
+                    }
+                });
     }
 }

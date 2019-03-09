@@ -17,6 +17,7 @@ public interface FuCallbak<V> extends HttpFinishCallBack {
     void setBean(V o);
     //void setSou(V o);
 }
+//导航栏
     public void getFuyong(final FuCallbak fuCallbak, Object obj){
     fuCallbak.setAnimation();
         HttpManager.getInstance().getServer().getFuyong()
@@ -32,7 +33,7 @@ public interface FuCallbak<V> extends HttpFinishCallBack {
 
 
     }
-    //子条目
+    //公众号Fragment
     public void getBe(final FuCallbak fuCallbak, Object obj,String num,String page){
         fuCallbak.setAnimation();
 

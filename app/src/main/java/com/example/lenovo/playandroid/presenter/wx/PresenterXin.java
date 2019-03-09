@@ -24,7 +24,9 @@ public class PresenterXin<V extends IView> extends IBasePresenter<V> implements 
     public void FishData(Object data){
         wxmodule.wxgetData(data,this);
     }
-
+    public void CancelP(Object o,int id){
+        wxmodule.CancelData(o,this,id);
+    }
 
     @Override
     public void setError(String error) {
@@ -33,6 +35,11 @@ public class PresenterXin<V extends IView> extends IBasePresenter<V> implements 
 
     @Override
     public void wxData(Object data) {
+        mView.show(data);
+    }
+
+    @Override
+    public void Cancel(Object data) {
         mView.show(data);
     }
 }

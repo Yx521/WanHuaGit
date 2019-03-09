@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#4d80be"
-        app:navigationIcon="@drawable/ic_arrow_back_white_24dp">
+        app:navigationIcon="@mipmap/ic_arrow_back">
 
         <FrameLayout
             android:layout_width="match_parent"

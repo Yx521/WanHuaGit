@@ -24,7 +24,7 @@
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_10"
-                android:src="@drawable/ic_arrow_back_white_24dp" />
+                android:src="@mipmap/ic_arrow_back" />
 
             <TextView
                 android:id="@+id/shu"
@@ -41,7 +41,7 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/xihuan"
+                android:id="@+id/buxihuan"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:visibility="visible"
@@ -49,7 +49,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:src="@mipmap/ic_toolbar_like_n" />
             <ImageView
-                android:id="@+id/noxihuan"
+                android:id="@+id/xihuan"
                 android:visibility="gone"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"

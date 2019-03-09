@@ -122,14 +122,19 @@ public interface ApiServer {
      */
     @GET("user/logout/json")
     Observable<LoginData> logout();
+    //取消收藏
   /*内*/
     @POST("lg/collect/{id}/json")
     Observable<Collect> getCollect(@Path("id") int id);
 
+    //站外收藏
     /*外*/
     @POST("lg/collect/add/json")
     @FormUrlEncoded
-    Observable<Collect> getWaiCollect(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+    Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
+    // 收藏文章列表
+    //http://www.wanandroid.com/lg/collect/list/0/json
+
 
     @GET("lg/collect/list/0/json")
     Observable<Data> getData();

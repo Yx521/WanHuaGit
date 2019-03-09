@@ -169,6 +169,7 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
                 String title = list.get(position).getTitle();
                 String link = list.get(position).getLink();
                 String author = list.get(position).getAuthor();
+                Log.e("ok",author);
                 int id = list.get(position).getId();
                 intent.putExtra("id",id);
                 intent.putExtra("title",title);

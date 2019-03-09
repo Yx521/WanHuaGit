@@ -56,7 +56,7 @@ public class SouAdapter extends XRecyclerView.Adapter<SouAdapter.MyHolder> {
             name = itemView.findViewById(R.id.name1);
             title = itemView.findViewById(R.id.title);
             data = itemView.findViewById(R.id.data);
-            tao = itemView.findViewById(R.id.tao);
+            tao = itemView.findViewById(R.id.bai);
             gong = itemView.findViewById(R.id.gongzhong);
 
         }
