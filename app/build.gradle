@@ -15,7 +15,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
         }
     }
     //解决xrecyclerview依赖冲突
@@ -38,26 +37,6 @@ android {
         targetGenDir 'src/main/java'
 
     }
- /*   signingConfigs {
-        debug {
-            // signingConfig signingConfigs.debug 添加到release
-            //jks路径
-            storeFile file('wananzhuo.jks')
-            //密码
-            storePassword "123456"
-            //账号
-            keyAlias "key0"
-            //密码
-            keyPassword "123456"
-        }
-    }
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
-        disable 'MissingTranslation'
-    }*/
-
 }
 
 dependencies {
@@ -114,6 +93,7 @@ dependencies {
     compile 'com.hyman:flowlayout-lib:1.1.2'
 
     implementation 'org.greenrobot:greendao:3.2.2'
+
 
     //最新版本 Banner:
     implementation 'com.youth.banner:banner:1.4.10'

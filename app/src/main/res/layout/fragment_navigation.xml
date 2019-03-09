@@ -12,8 +12,6 @@
         android:layout_width="@dimen/dp_100"
         android:id="@+id/tab_navi"
         app:tab_height="@dimen/dp_50"
-
-
         app:indicator_color="@color/colorCard"
         app:indicator_gravity="fill"
         app:tab_margin="@dimen/dp_15"

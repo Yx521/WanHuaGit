@@ -50,7 +50,7 @@ public class XinaActivity extends BaseActivity<IView, Main_beanP<IView>> impleme
          this.keywork =event;
          Log.e("eve1",event);
 
-     mPresenter.beanP(null, event, page + "");
+     mPresenter.beanP( event, page + "");
      }
 
 
@@ -98,14 +98,14 @@ public class XinaActivity extends BaseActivity<IView, Main_beanP<IView>> impleme
     @Override
     public void onRefresh() {
         page = 0;
-        mPresenter.beanP(null, keywork, page + "");
+        mPresenter.beanP( keywork, page + "");
         xre.refreshComplete();
     }
 
     @Override
     public void onLoadMore() {
         page++;
-        mPresenter.beanP(null, keywork, page + "");
+        mPresenter.beanP( keywork, page + "");
         zuihouAdapter.notifyDataSetChanged();
     }
 

@@ -20,8 +20,6 @@ import android.widget.Toast;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
-import com.example.lenovo.playandroid.beans.wx.Data;
-import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
 import com.example.lenovo.playandroid.dao.LoginManager;
@@ -80,21 +78,6 @@ public class LoginActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> imp
 
     @Override
     public void Register(Object registerdata) {
-
-    }
-
-    @Override
-    public void setData(Object obj) {
-
-    }
-
-    @Override
-    public void setS(Data value) {
-
-    }
-
-    @Override
-    public void shan(HttpResult value) {
 
     }
 

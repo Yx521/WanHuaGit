@@ -11,7 +11,7 @@ import java.util.List;
 public class DataBaseMannger {
     public static DataBaseMannger sDataBaseMannger;
     private final HistoryDataDao mHistoryDataDao;
-    private final CanDataDao canDataDao;
+    private final DecisionGlideDao mDecisionGlideDao;
 
     //单例模式
     public static DataBaseMannger getIntrance() {
@@ -30,7 +30,7 @@ public class DataBaseMannger {
         DaoMaster daoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         mHistoryDataDao = daoSession.getHistoryDataDao();
-        canDataDao = daoSession.getCanDataDao();
+        mDecisionGlideDao = daoSession.getDecisionGlideDao();
     }
 
     //查询
@@ -39,8 +39,8 @@ public class DataBaseMannger {
     }
 
     //查询
-    public List<CanData> selectCan() {
-        return canDataDao.queryBuilder().list();
+    public List<DecisionGlide> selectGlide() {
+        return mDecisionGlideDao.queryBuilder().list();
     }
 
     //添加
@@ -48,16 +48,19 @@ public class DataBaseMannger {
         mHistoryDataDao.insertInTx(list);
     }
 
-    public void insertCan(CanData list) {
-        canDataDao.insertInTx(list);
+    //添加
+    public void insertGlide(DecisionGlide list) {
+        mDecisionGlideDao.insertInTx(list);
     }
 
     //删除
     public void deleteAll() {
         mHistoryDataDao.deleteAll();
     }
-    //删除
-    public void deleteCan(CanData bean){
-        canDataDao.delete(bean);
+
+    //修改
+    public void updateGlide(DecisionGlide bean) {
+        mDecisionGlideDao.update(bean);
     }
+
 }

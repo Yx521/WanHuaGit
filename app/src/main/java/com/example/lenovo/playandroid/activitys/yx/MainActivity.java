@@ -2,9 +2,7 @@ package com.example.lenovo.playandroid.activitys.yx;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -37,8 +34,8 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
 import com.example.lenovo.playandroid.dao.LoginManager;
-import com.example.lenovo.playandroid.activitys.wlg.AboutActivity;
-import com.example.lenovo.playandroid.fragments.wx.ShouCangFragment;
+import com.example.lenovo.playandroid.dao.DataBaseMannger;
+import com.example.lenovo.playandroid.dao.DecisionGlide;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
 import com.example.lenovo.playandroid.activitys.zl.LoginActivity;
@@ -49,7 +46,6 @@ import com.example.lenovo.playandroid.fragments.wx.KnowledgeHierarchyFragment;
 import com.example.lenovo.playandroid.fragments.wlg.NavigationFragment;
 import com.example.lenovo.playandroid.fragments.yyj.VipcnFragment;
 import com.example.lenovo.playandroid.fragments.zl.SettingFragment;
-import com.example.lenovo.playandroid.global.Global;
 import com.example.lenovo.playandroid.http.ApiServer;
 import com.example.lenovo.playandroid.http.HttpManager;
 import com.example.lenovo.playandroid.http.SaveCookiesInterceptor;
@@ -68,7 +64,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -95,12 +90,18 @@ public class MainActivity extends AppCompatActivity
     private SearchFragment mSearchFragment;
     private TextView mLogin;
     private long exitTime;
-    private FragmentManager mSupportFragmentManager;
+    private HomePageFragment mFragment;
+    private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
+    private VipcnFragment mVipcnFragment;
+    private NavigationFragment mNavigationFragment;
+    private SettingFragment mSettingFragment;
 
     private MenuItem mItem;
     private List<LogDaoBean> mSelect;
     private boolean mIsLogin;
     private AlertDialog mAlertDialog;
+    private Intent mIntent;
+    private boolean mA;
 
 
     @Override
@@ -108,7 +109,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        mIntent = getIntent();
+        mA = mIntent.getBooleanExtra("a", true);
         View headerView = mNavView.getHeaderView(0);
         mLogin = headerView.findViewById(R.id.nav_header_login_tv);
 
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity
         LogDaoBean logDaoBean = mSelect.get(0);
         mIsLogin = logDaoBean.getIsLogin();
         String name = logDaoBean.getName();
-        Log.i("name", name);
+        Log.e("name", name);
         if (mIsLogin == true) {
             mLogin.setText(name + "");
             mItem.setVisible(true);
@@ -144,9 +146,14 @@ public class MainActivity extends AppCompatActivity
         actionBar.setDisplayShowTitleEnabled(false);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#049486")));
-
+        initData();
         mClassifyFragment = new ClassifyFragment();
-        mItemsFragment = new ItemsFragment();
+        //mItemsFragment = new ItemsFragment();
+        mFragment = new HomePageFragment();
+        mKnowledgeHierarchyFragment = new KnowledgeHierarchyFragment();
+        mVipcnFragment = new VipcnFragment();
+        mNavigationFragment = new NavigationFragment();
+        mSettingFragment = new SettingFragment();
         //区分fragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,15 +161,15 @@ public class MainActivity extends AppCompatActivity
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                 if (index == 0) {
-                    EventBus.getDefault().post("0");
+                    EventBus.getDefault().postSticky("0");
                 } else if (index == 1) {
-                    EventBus.getDefault().post("1");
+                    EventBus.getDefault().postSticky("1");
                 } else if (index == 2) {
-                    EventBus.getDefault().post("2");
+                    EventBus.getDefault().postSticky("2");
                 } else if (index == 3) {
-                    EventBus.getDefault().post("3");
+                    EventBus.getDefault().postSticky("3");
                 } else if (index == 4) {
-                    EventBus.getDefault().post("4");
+                    EventBus.getDefault().postSticky("4");
                 }
 
             }
@@ -178,9 +185,20 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         initBottomNavigationView();
         initDrawerLayout();
+        if (mA) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment()).commit();
+        } else {
+            reLoadFragView();
+        }
+    }
 
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment()).commit();
+    private void initData() {
+        List<DecisionGlide> glideList = DataBaseMannger.getIntrance().selectGlide();
+        if (glideList.size() == 0) {
+            DataBaseMannger.getIntrance().insertGlide(new DecisionGlide(null, false));
+            DataBaseMannger.getIntrance().insertGlide(new DecisionGlide(null, false));
+            DataBaseMannger.getIntrance().insertGlide(new DecisionGlide(null, false));
+        }
     }
 
     private void loginListener() {
@@ -190,7 +208,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
-
     }
 
     @Override
@@ -251,33 +268,28 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_item_wan_android:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
-                MenuItem item1 = mDesignBottomSheet.getMenu().findItem(R.id.tab_main_pager);
-                item1.setChecked(true);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
                 mDesignBottomSheet.setVisibility(View.VISIBLE);
                 mFab.setVisibility(View.VISIBLE);
                 mCommonToolbarTitleTv.setText(getString(R.string.home_pager));
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_my_collect:
-                mDesignBottomSheet.setVisibility(View.GONE);
-                mFab.setVisibility(View.GONE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new ShouCangFragment()).commit();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_setting:
+                mCommonToolbarTitleTv.setText(getString(R.string.setting));
+                FragmentManager supportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_group, mSettingFragment);
+                fragmentTransaction.commit();
                 mDesignBottomSheet.setVisibility(View.GONE);
                 mFab.setVisibility(View.GONE);
-                mCommonToolbarTitleTv.setText(getString(R.string.setting));
-                mSupportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
-                fragmentTransaction.commit();
                 drawer.closeDrawer(GravityCompat.START);
+
                 break;
             case R.id.nav_item_about_us:
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
 
                 break;
             case R.id.nav_item_logout:
@@ -331,7 +343,6 @@ public class MainActivity extends AppCompatActivity
                         mAlertDialog.dismiss();
                         mDrawerLayout.openDrawer(Gravity.LEFT);
                         SaveCookiesInterceptor.clearCookie(MainActivity.this);
-
                         mSelect = new LoginManager().select();
                         if (value.getErrorMsg().equals("")) {
                             mItem.setVisible(false);
@@ -370,23 +381,27 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
                         index = 0;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mFragment, "0").commit();
                         break;
                     case R.id.tab_knowledge_hierarchy:
                         index = 1;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new KnowledgeHierarchyFragment()).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mKnowledgeHierarchyFragment).commit();
                         break;
                     case R.id.tab_wx_article:
                         index = 2;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new VipcnFragment()).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mVipcnFragment).commit();
                         break;
                     case R.id.tab_navigation:
                         index = 3;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new NavigationFragment()).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mNavigationFragment).commit();
                         break;
                     case R.id.tab_project:
                         index = 4;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new ItemsFragment(), "4").commitAllowingStateLoss();
+                        /*if(mItemsFragment==null){
+                            ItemsFragment itemsFragment = new ItemsFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group,itemsFragment,"4").commit();
+                        }*/
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new ItemsFragment(), "4").commit();
                         break;
                     default:
                         break;
@@ -444,6 +459,9 @@ public class MainActivity extends AppCompatActivity
                         }).show();
                 exitTime = System.currentTimeMillis();
             } else {
+                List<DecisionGlide> decisionGlides = DataBaseMannger.getIntrance().selectGlide();
+                Long id = decisionGlides.get(1).getId();
+                DataBaseMannger.getIntrance().updateGlide(new DecisionGlide(id, false));
                 finish();
                 System.exit(0);
             }
@@ -453,6 +471,24 @@ public class MainActivity extends AppCompatActivity
         return super.onKeyDown(keyCode, event);
     }
 
+    public void reLoadFragView() {
+        MenuItem item = mNavView.getMenu().getItem(2);
+        item.setChecked(true);
+        /*显示*/
+        mCommonToolbarTitleTv.setText(getString(R.string.setting));
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
+        fragmentTransaction.commit();
+        mDesignBottomSheet.setVisibility(View.GONE);
+        mFab.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void login(String name) {

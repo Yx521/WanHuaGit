@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.adapter.zl.ClassifyAdapter;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
-import com.example.lenovo.playandroid.beans.wx.Data;
-import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
 import com.example.lenovo.playandroid.presenter.zl.ZlPresenter;
 import com.example.lenovo.playandroid.view.zl.ZlView;
@@ -89,21 +87,6 @@ public class SuperChapterNameActivity extends BaseActivity<ZlView, ZlPresenter<Z
     @Override
     public void Register(Object registerdata) {
 //
-    }
-
-    @Override
-    public void setData(Object obj) {
-
-    }
-
-    @Override
-    public void setS(Data value) {
-
-    }
-
-    @Override
-    public void shan(HttpResult value) {
-
     }
 
     @Override

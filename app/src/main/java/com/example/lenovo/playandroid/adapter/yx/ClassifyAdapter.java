@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
+import com.example.lenovo.playandroid.dao.DataBaseMannger;
+import com.example.lenovo.playandroid.dao.DecisionGlide;
+import com.example.lenovo.playandroid.utils.NoImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,10 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ViewHolderClassify holderClassify = (ViewHolderClassify) holder;
         if (!TextUtils.isEmpty(mData.get(position).getEnvelopePic())) {
-            Glide.with(mContext).load(mData.get(position).getEnvelopePic()).into(holderClassify.mItemProjectListIv);
+            List<DecisionGlide> decisionGlides = DataBaseMannger.getIntrance().selectGlide();
+            Boolean isbo = decisionGlides.get(0).getIsbo();
+            NoImageUtils.getNoImgnstance().LoadGlide(mData.get(position).getEnvelopePic(),mContext,holderClassify.mItemProjectListIv,isbo);
+           // Glide.with(mContext).load(mData.get(position).getEnvelopePic()).into(holderClassify.mItemProjectListIv);
         }
         if (!TextUtils.isEmpty(mData.get(position).getTitle())) {
             holderClassify.mItemProjectListTitleTv.setText(mData.get(position).getTitle());

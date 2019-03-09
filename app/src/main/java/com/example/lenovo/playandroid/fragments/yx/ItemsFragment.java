@@ -2,6 +2,8 @@ package com.example.lenovo.playandroid.fragments.yx;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -53,6 +55,12 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("liangxq","onCreate");
+    }
+
+    @Override
     protected void initData() {
         mPresenter.getDataP("");
     }
@@ -68,12 +76,13 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
             fragments.add(frag);
         }
         Log.e("yx", "show: " + fragments.size());
-        if(ItemsFragment.this.isAdded()){
-            ItemsAdapter itemsAdapter = new ItemsAdapter(getChildFragmentManager(), data, fragments);
-            mProjectViewpager.setAdapter(itemsAdapter);
-            mProjectTabLayout.setViewPager(mProjectViewpager);
+        if(ItemsFragment.this.isAdded()&&data!=null&&fragments!=null){
+             ItemsAdapter itemsAdapter = new ItemsAdapter(getChildFragmentManager(), data, fragments);
+            if(mProjectViewpager!=null&&mProjectTabLayout!=null&&itemsAdapter!=null){
+                mProjectViewpager.setAdapter(itemsAdapter);
+                mProjectTabLayout.setViewPager(mProjectViewpager);
+            }
         }
-
     }
 
     @Override
@@ -84,6 +93,15 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
     @Override
     protected Presenter<IView> createPresenter() {
         return new Presenter<>();
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("liangxq","onDetach");
+        mProjectViewpager = null;
+        mProjectTabLayout = null;
     }
 
 }

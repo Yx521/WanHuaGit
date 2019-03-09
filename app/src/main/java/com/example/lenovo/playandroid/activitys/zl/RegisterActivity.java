@@ -1,26 +1,26 @@
 package com.example.lenovo.playandroid.activitys.zl;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.activity.BaseActivity;
-import com.example.lenovo.playandroid.beans.wx.Data;
-import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.presenter.zl.ZlPresenter;
 import com.example.lenovo.playandroid.view.zl.ZlView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,8 +41,6 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
     EditText mRegisterConfirmPasswordEdit;
     @BindView(R.id.register_btn)
     Button mRegisterBtn;
-    @BindView(R.id.none)
-    TextView mNone;
 
     @Override
     public void BannerData(Object bannerdata) {
@@ -63,10 +61,9 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
     @Override
     public void Register(Object registerdata) {
         LoginData loginData = (LoginData) registerdata;
-        Log.e("哈哈",loginData.toString());
-        int errorCode = loginData.getErrorCode();
-        if (errorCode ==  -1 ) {
-            Snackbar.make(mRegisterBtn, loginData.getErrorMsg(), Snackbar.LENGTH_SHORT)
+        String errorMsg = loginData.getErrorMsg();
+        if (errorMsg.equals("用户名已经被注册!")) {
+            Snackbar.make(mRegisterBtn, errorMsg, Snackbar.LENGTH_SHORT)
                     .setAction("知道了", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -77,21 +74,6 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
         } else {
             finish();
         }
-
-    }
-
-    @Override
-    public void setData(Object obj) {
-
-    }
-
-    @Override
-    public void setS(Data value) {
-
-    }
-
-    @Override
-    public void shan(HttpResult value) {
 
     }
 
@@ -107,16 +89,8 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
 
     @Override
     protected void initEventAndData() {
-        mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-
+        mToolbar.setTitle("注册");
     }
 
     @Override
@@ -144,10 +118,15 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
     @SuppressLint("ResourceAsColor")
     @OnClick(R.id.register_btn)
     public void onViewClicked() {
+        int version = Integer.valueOf(android.os.Build.VERSION.SDK);
         String username = mRegisterAccountEdit.getText().toString();
         String password = mRegisterPasswordEdit.getText().toString();
         String repassword = mRegisterConfirmPasswordEdit.getText().toString();
         if (username.length() < 10) {
+            startActivity(new Intent(this, RegisterActivity.class));
+            if (version>5){
+                overridePendingTransition(R.anim.intentloser,R.anim.intentloser);
+            }
             //状态栏颜色
             Window window = RegisterActivity.this.getWindow();
 
@@ -164,7 +143,6 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.setStatusBarColor(ContextCompat.getColor(this, R.color.light_transparent));
             }
-            mNone.setVisibility(View.VISIBLE);
             Snackbar.make(mRegisterBtn, "注册失败", Snackbar.LENGTH_SHORT).setActionTextColor(R.color.tab_bac)
                     .setAction("知道了", new View.OnClickListener() {
                         @Override
@@ -184,6 +162,4 @@ public class RegisterActivity extends BaseActivity<ZlView, ZlPresenter<ZlView>> 
             mPresenter.register(username, password, repassword);
         }
     }
-
-
 }

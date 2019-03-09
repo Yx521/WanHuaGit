@@ -2,7 +2,6 @@ package com.example.lenovo.playandroid.presenter.wlg;
 
 import com.example.lenovo.playandroid.base.presenter.IBasePresenter;
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
-import com.example.lenovo.playandroid.beans.yx.Collect;
 import com.example.lenovo.playandroid.module.wlg.WlgNaviModule;
 import com.example.lenovo.playandroid.view.wlg.WlgNaviView;
 
@@ -21,34 +20,9 @@ public class WlgNaviPresenter<V extends WlgNaviView> extends IBasePresenter<V> i
      }
 
     }
-
-    @Override
-    public void getCollect(Collect collect) {
-        if (mView!=null){
-            mView.shouCollect(collect);
-        }
-    }
-
-    @Override
-    public void untCollect(Collect collect) {
-        if (mView!=null){
-            mView.shouunCollect(collect);
-        }
-    }
-
     public void setNavi(){
         if (mWlgNaviModule!=null){
             mWlgNaviModule.getMessage(this);
-        }
-    }
-    public void setCollect(int id){
-        if (mWlgNaviModule!=null){
-            mWlgNaviModule.getCollect(this,id);
-        }
-    }
-    public void setunCollect(int id){
-        if (mWlgNaviModule!=null){
-            mWlgNaviModule.getunCollect(this,id);
         }
     }
 

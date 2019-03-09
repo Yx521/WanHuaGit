@@ -24,16 +24,14 @@ public interface FuCallbak<V> extends HttpFinishCallBack {
                 .subscribe(new BaseObserver<Fuyong>(fuCallbak) {
                     @Override
                     public void onNext(Fuyong fuyong) {
-                        Log.e("fuyong",fuyong.getData().size()+"");
+                        //Log.e("fuyong",fuyong.getData().size()+"");
                         fuCallbak.setFuOb(fuyong);
                         fuCallbak.setHidoAnimation();
                     }
                 });
-
-
     }
     //子条目
-    public void getBe(final FuCallbak fuCallbak, Object obj,String num,String page){
+    public void getBe(final FuCallbak fuCallbak,String num,String page){
         fuCallbak.setAnimation();
 
         HttpManager.getInstance().getServer().getBean(num,page)
@@ -41,7 +39,7 @@ public interface FuCallbak<V> extends HttpFinishCallBack {
                 .subscribe(new BaseObserver<Bean>(fuCallbak) {
                     @Override
                     public void onNext(Bean bean) {
-                        Log.e("fuyong",bean.getData()+"");
+                        //Log.e("fuyong",bean.getData()+"");
                         fuCallbak.setBean(bean);
                         fuCallbak.setHidoAnimation();
                     }

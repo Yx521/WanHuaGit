@@ -125,17 +125,8 @@ public class ClassifyFragment extends BaseFragment<IView, YxPresenter<IView>> im
     }
 
     @Override
-    public void onDestroyView() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onDetach() {
+        super.onDetach();
+        Log.e("yx", "onDetach: " );
     }
 }

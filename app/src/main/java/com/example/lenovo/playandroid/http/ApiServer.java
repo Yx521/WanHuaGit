@@ -3,8 +3,6 @@ package com.example.lenovo.playandroid.http;
 
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
 import com.example.lenovo.playandroid.beans.wx.Batree;
-import com.example.lenovo.playandroid.beans.wx.Data;
-import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.beans.wx.Re;
 import com.example.lenovo.playandroid.beans.TopSearchData;
 import com.example.lenovo.playandroid.beans.yx.Collect;
@@ -42,7 +40,6 @@ public interface ApiServer {
     Observable<FeedArticleListData> getFeedArticleList(@Path("num") int num);
 
 
-
     @GET("wxarticle/list/{id}/{num}/json")
     Observable<FeedArticleListData> getIdFeedArticleList(@Path("id") int id, @Path("num") int num);
 
@@ -56,27 +53,24 @@ public interface ApiServer {
 
     @GET("project/list/{page}/json")
     Observable<ProjectClassifyData> getProjectListData(@Path("page") int page, @Query("cid") int cid);
+
     //导航数据
     @GET("navi/json")
     Observable<NaviBean> getNaviBean();
 
-/*
-*
-* 知识体系
-*
-* */
-//http://www.wanandroid.com/article/list/0/json?cid=60
+    /**
+    *
+    *  知识体系
+    * http://www.wanandroid.com/article/list/0/json?cid=60
+     */
 
     @GET("tree/json")
     Observable<Batree> getBatree();
 
-   @GET("article/list/{page}/json")
-    Observable <Re> getYan(@Path("page")int  page, @Query("cid") int cid);
+    @GET("article/list/{page}/json")
+    Observable<Re> getYan(@Path("page") int page, @Query("cid") int cid);
 
-   //article/list/0/json?cid=60
-
-
-
+    //article/list/0/json?cid=60
     @GET("friend/json")
     Observable<UsefulSiteData> getUsefulSiteData();
 
@@ -86,26 +80,30 @@ public interface ApiServer {
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<SearchList> getSearchList(@Path("page") int page, @Field("k") String k);
+
     //yyj
 //复用顶部接口
 //http://wanandroid.com/wxarticle/chapters/json
     @GET("wxarticle/chapters/json")
-    Observable<Fuyong>getFuyong();
+    Observable<Fuyong> getFuyong();
 
     //* 获取当前公众号某页的数据
 //     * http://wanandroid.com/wxarticle/list/405/1/json
     @GET("wxarticle/list/{num}/{page}/json")
-    Observable<Bean>getBean(@Path("num")String num, @Path("page")String page);
+    Observable<Bean> getBean(@Path("num") String num, @Path("page") String page);
     //
     //搜索
     //http://wanandroid.com/wxarticle/list/419/2/json?k=Java
 
     @GET("wxarticle/list/{num}/{page}/json")
-    Observable<sousuo>getShousuo(@Path("num")String num, @Path("page")String page);
+    Observable<sousuo> getShousuo(@Path("num") String num, @Path("page") String page);
 
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<Bean> getSearchListThree(@Path("page") int page, @Field("k") String k);
+
+    @POST("lg/Collect/{id}/json")
+    Observable<Collect> getCollect(@Path("id") int id);
 
     @POST("user/login")
     @FormUrlEncoded
@@ -114,6 +112,7 @@ public interface ApiServer {
     @POST("user/register")
     @FormUrlEncoded
     Observable<LoginData> getRegisterData(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+
     /**
      * 退出登录
      * http://www.wanandroid.com/user/logout/json
@@ -122,41 +121,5 @@ public interface ApiServer {
      */
     @GET("user/logout/json")
     Observable<LoginData> logout();
-
-    @POST("lg/collect/{id}/json")
-    Observable<Collect> getCollect(@Path("id") int id);
-
-    /*外*/
-    @POST("lg/collect/add/json")
-    @FormUrlEncoded
-    Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
-    @POST("lg/uncollect_originId/{id}/json")
-
-    Observable<Collect> cancelCollectArticle(@Path("id") int id);
-
-
-
-
-    /**
-     * 取消站内文章
-     * http://www.wanandroid.com/lg/uncollect_originId/2333/json
-     *
-     * @param id article id
-     * @param originId origin id
-     * @return 取消站内文章数据
-     */
-    @POST("lg/uncollect_originId/{id}/json")
-    @FormUrlEncoded
-    Observable<HttpResult> cancelCollectPageArticle(@Path("id") int id, @Field("originId") int originId);
-
-
-
-
-    @GET("lg/collect/list/0/json")
-    Observable<Data> getData();
-
-    @POST("lg/uncollect/{id}/json")
-    @FormUrlEncoded
-    Observable<HttpResult> getCancelCollect(@Path("id") int id,@Field("originId") int originId);
 
 }

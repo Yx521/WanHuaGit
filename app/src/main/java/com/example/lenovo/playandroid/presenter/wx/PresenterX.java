@@ -27,9 +27,9 @@ public class PresenterX <V extends IView> extends IBasePresenter<V> implements M
 
 
 
-    public void WDataP(Object o) {
+    public void WDataP(int page,int cid) {
         if (mView != null) {
-            moduleX.WgetData(this, o);
+            moduleX.WgetData(this, page,cid);
         }
     }
 

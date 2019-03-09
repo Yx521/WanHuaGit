@@ -2,10 +2,13 @@ package com.example.lenovo.playandroid.activitys.yx;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
@@ -18,11 +21,14 @@ import android.widget.LinearLayout;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.activity.SimpleActivity;
+import com.example.lenovo.playandroid.dao.DataBaseMannger;
+import com.example.lenovo.playandroid.dao.DecisionGlide;
 import com.example.lenovo.playandroid.global.Global;
 import com.example.lenovo.playandroid.utils.StatusBarUtil;
 import com.just.agentweb.AgentWeb;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +46,7 @@ public class WebViewActivity extends SimpleActivity {
     private String mWeb;
     private String mDesc;
 
+    @SuppressLint("NewApi")
     @Override
     protected void initEventAndData() {
         Intent intent = getIntent();
@@ -49,6 +56,9 @@ public class WebViewActivity extends SimpleActivity {
         setSupportActionBar(mArticleDetailToolbar);
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mArticleDetailToolbar);
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
         mAgentWeb = AgentWeb.with(this)
@@ -60,7 +70,12 @@ public class WebViewActivity extends SimpleActivity {
                 .go(mWeb);
         WebView mWebView = mAgentWeb.getWebCreator().getWebView();
         WebSettings mSettings = mWebView.getSettings();
-
+        List<DecisionGlide> glideList = DataBaseMannger.getIntrance().selectGlide();
+        Boolean isbo = glideList.get(0).getIsbo();
+        if(isbo){
+            mSettings.setBlockNetworkImage(true);
+            mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
         mSettings.setJavaScriptEnabled(true);
         mSettings.setSupportZoom(true);
         mSettings.setBuiltInZoomControls(true);
@@ -107,6 +122,9 @@ public class WebViewActivity extends SimpleActivity {
                 break;
             case R.id.item_system_browser:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mWeb)));
+                break;
+            case android.R.id.home:
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

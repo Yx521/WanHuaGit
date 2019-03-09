@@ -25,7 +25,7 @@ public class DuoM {
                 .subscribe(new BaseObserver<Bean>(httpQing) {
                     @Override
                     public void onNext(Bean fuyong) {
-                        Log.e("fuyong", fuyong.getData().getDatas().size() + "");
+                        //Log.e("fuyong", fuyong.getData().getDatas().size() + "");
                         httpQing.setFuyongl(fuyong);
                         httpQing.setHidoAnimation();
                     }
@@ -40,7 +40,7 @@ public class DuoM {
                 .subscribe(new BaseObserver<Bean>(fuCallbak) {
                     @Override
                     public void onNext(Bean value) {
-                        Log.e("a",value.getData().getDatas().get(0).getChapterName());
+                        //Log.e("a",value.getData().getDatas().get(0).getChapterName());
                         fuCallbak.setSoul(value);
                     }
                 });

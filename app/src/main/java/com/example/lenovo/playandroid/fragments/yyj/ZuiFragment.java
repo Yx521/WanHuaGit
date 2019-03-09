@@ -42,7 +42,7 @@ public class ZuiFragment extends BaseFragment<IView, Main_beanP<IView>> implemen
         this.keywork = cc;
         Log.e("eve1", cc + "");
 
-        mPresenter.beanP(null, keywork, page + "");
+        mPresenter.beanP( keywork, page + "");
     }
 
 
@@ -89,14 +89,14 @@ public class ZuiFragment extends BaseFragment<IView, Main_beanP<IView>> implemen
     @Override
     public void onRefresh() {
         page = 0;
-        mPresenter.beanP(null, keywork, page + "");
+        mPresenter.beanP( keywork, page + "");
         xre.refreshComplete();
     }
 
     @Override
     public void onLoadMore() {
         page++;
-        mPresenter.beanP(null, keywork, page + "");
+        mPresenter.beanP( keywork, page + "");
         zuihouAdapter.notifyDataSetChanged();
     }
 }

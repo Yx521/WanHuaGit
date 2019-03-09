@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,8 +56,7 @@ public class VipcnFragment extends BaseFragment<IView, Main_FuP<IView>> implemen
     protected void initData() {
         tab = getActivity().findViewById(R.id.tab);
         vp = getActivity().findViewById(R.id.vp);
-
-        mPresenter.bindup(null);
+        mPresenter.bindup("");
 
     }
 
@@ -75,15 +75,12 @@ public class VipcnFragment extends BaseFragment<IView, Main_FuP<IView>> implemen
         for (int i = 0; i < data.size(); i++) {
             fackFragments.add(new FackFragment(data.get(i).getId(),data.get(i).getName()));
             strings.add(data.get(i).getName());
-
         }
-        if(VipcnFragment.this.isAdded()){
+        if(VipcnFragment.this.isAdded()&&vp!=null&&tab!=null){
             MyAdapter myAdapter = new MyAdapter(getChildFragmentManager(), strings, fackFragments);
             vp.setAdapter(myAdapter);
             tab.setupWithViewPager(vp);
         }
-
-
     }
 
     @Override

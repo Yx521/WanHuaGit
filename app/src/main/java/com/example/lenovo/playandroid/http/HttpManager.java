@@ -4,6 +4,7 @@ package com.example.lenovo.playandroid.http;
 import com.example.lenovo.playandroid.app.App;
 import com.example.lenovo.playandroid.global.Global;
 import com.example.lenovo.playandroid.utils.cache.SystemUtil;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;

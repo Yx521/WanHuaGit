@@ -43,6 +43,9 @@ public class Presenter<V extends IView> extends IBasePresenter<V> implements Mod
     @Override
     public void setData(Object data) {
         //向V层发送数据
-        mView.show(data);
+        if(mView!=null&&data!=null){
+            mView.show(data);
+        }
+
     }
 }

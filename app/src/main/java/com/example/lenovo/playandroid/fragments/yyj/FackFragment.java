@@ -66,9 +66,7 @@ public class FackFragment extends BaseFragment<YanView, DuoP<YanView>> implement
     public FackFragment(int id, String name) {
         this.name = id + "";
         this.mName = name;
-        Log.e("kmklmlkm", "FackFragment: " + id + "");
-        Log.e("fgnfgbhdfgbdfvd", "FackFragment: " + name + "");
-        // Required empty public constructor
+
     }
 
     @Override
@@ -181,7 +179,9 @@ public class FackFragment extends BaseFragment<YanView, DuoP<YanView>> implement
     public void onLoadMore() {
         page++;
         mPresenter.Fulian(name, page + "");
-        xreAdapter.notifyDataSetChanged();
+        if(xreAdapter!=null){
+            xreAdapter.notifyDataSetChanged();
+        }
     }
     // XRecyclerView.LoadingListener, XreAdapter.Dianji, XreAdapter.Gongdian
    /* private final String mName;

@@ -50,7 +50,7 @@ public class NaviAdapter extends BaseQuickAdapter<NaviBean.DataBean,NaviViewHold
         mTagAdapter = new TagAdapter<NaviBean.DataBean.ArticlesBean>(articles) {
             @Override
             public View getView(FlowLayout parent, int position, NaviBean.DataBean.ArticlesBean articlesBean) {
-                TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.flowna_layout_tv,
+                TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.flow_layout_tv,
                         mTagFlowLayout, false);
                 if (item == null) {
                     return null;
@@ -86,12 +86,8 @@ public class NaviAdapter extends BaseQuickAdapter<NaviBean.DataBean,NaviViewHold
                 articles.get(position).getId(),
                 articles.get(position).getTitle(),
                 articles.get(position).getLink(),
-                articles.get(position).getAuthor(),
-
+                articles.get(position).isCollect(),
                 false,
                 false);
-        Log.e(TAG, "startNavigationPager: "+articles.get(position).getAuthor() );
-
-
     }
 }

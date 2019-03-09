@@ -16,7 +16,6 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.adapter.wlg.NaviAdapter;
 import com.example.lenovo.playandroid.base.fragment.BaseFragment;
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
-import com.example.lenovo.playandroid.beans.yx.Collect;
 import com.example.lenovo.playandroid.presenter.wlg.WlgNaviPresenter;
 import com.example.lenovo.playandroid.view.wlg.WlgNaviView;
 
@@ -46,7 +45,6 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
     Unbinder unbinder;
     @BindView(R.id.li)
     LinearLayout li;
-    Unbinder unbinder1;
     private LinearLayoutManager mManager;
     private NaviAdapter mNaviAdapter;
     private boolean needScroll;
@@ -83,8 +81,9 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
 
     @Override
     public void shouNaviBean(final NaviBean naviBean) {
-        Log.i("wlg导航", "shouNaviBean: " + naviBean);
+        Log.e("wlg导航", "shouNaviBean: " + naviBean);
         mData = naviBean.getData();
+
 
         if(tabNavi!=null){
             tabNavi.setTabAdapter(new TabAdapter() {
@@ -118,28 +117,16 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
                     return -1;
                 }
             });
-            setChildViewVisibility(View.VISIBLE);
+        }
+        setChildViewVisibility(View.VISIBLE);
 
-            mNaviAdapter.replaceData(mData);
-            Log.e("导航数据", "shouNaviBean: "+mData.toString() );
-            mNaviAdapter.openLoadAnimation(5);
+        mNaviAdapter.replaceData(mData);
+        mNaviAdapter.openLoadAnimation(5);
+        if(xlvNavi!=null&&tabNavi!=null){
             leftRightLinkage();
         }
 
-
-
     }
-
-    @Override
-    public void shouCollect(Collect collect) {
-
-    }
-
-    @Override
-    public void shouunCollect(Collect collect) {
-
-    }
-
     private void leftRightLinkage() {
         xlvNavi.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -181,9 +168,11 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
         }
     }
     private void setChildViewVisibility(int visibility) {
-        li.setVisibility(visibility);
-        xlvNavi.setVisibility(visibility);
-        navigationDivider .setVisibility(visibility);
+        if(li!=null&&xlvNavi!=null&&navigationDivider!=null){
+            li.setVisibility(visibility);
+            xlvNavi.setVisibility(visibility);
+            navigationDivider .setVisibility(visibility);
+        }
     }
     private void rightLinkageLeft(int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
