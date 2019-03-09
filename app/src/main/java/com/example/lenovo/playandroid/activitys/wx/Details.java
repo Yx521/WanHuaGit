@@ -30,9 +30,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.http.Url;
+
+
 public class Details extends BaseActivity<IView,PresenterXin<IView>> implements IView,View.OnClickListener {
 
-   private String title;
+    private String title;
     private WebView detailsWebview;
     private ImageView img;
     private ImageView xin_img;
@@ -44,19 +50,20 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
     private String author;
     private int originId;
     private int id1;
+    private Intent mIntent;
 
 
     @Override
     protected void initEventAndData() {
-        Intent intent = getIntent();
-        title = intent.getStringExtra("title");
-        url = intent.getStringExtra("url");
-        id = intent.getIntExtra("id",0);
-        author = intent.getStringExtra("author");
+        mIntent = getIntent();
+        title = mIntent.getStringExtra("title");
+        url = mIntent.getStringExtra("url");
+        id = mIntent.getIntExtra("id", 0);
+        author = mIntent.getStringExtra("author");
         Toolbar tool = findViewById(R.id.tool);
         img = findViewById(R.id.img);
         xin_img = findViewById(R.id.xin_img);
-        bu_img= findViewById(R.id.bu_img);
+        bu_img = findViewById(R.id.bu_img);
         details_text = findViewById(R.id.details_text);
         bar = findViewById(R.id.progressBar1);
         img.setOnClickListener(this);
@@ -103,6 +110,7 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img:
+                setResult(12,mIntent);
                 finish();
                 break;
             case R.id.xin_img:
@@ -140,7 +148,7 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, Menu.NONE, "分享").setIcon(R.drawable.ic_action_share);
         menu.add(2, 3, Menu.NONE, "用系统浏览器打开").setIcon(R.drawable.ic_action_browser);
-          return true;
+        return true;
     }
 
     @Override
@@ -149,7 +157,7 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (detailsWebview.canGoBack()) {
                 //当webview不是处于第一页面时，返回上一个页面
-
+                setResult(12,mIntent);
                 return true;
             } else {
                 //当webview处于第一页面时,直接退出程序
@@ -164,17 +172,16 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 1:
-                Intent intent=new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra(Intent.EXTRA_TEXT, "请在浏览器中打开"+ title);
+                intent.putExtra(Intent.EXTRA_TEXT, "请在浏览器中打开" + title);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, getTitle()));
                 break;
             case 3:
                 Uri uri = Uri.parse(url);
-                Intent intent1= new Intent(Intent.ACTION_VIEW, uri);
-
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent1);
                 break;
         }
@@ -222,11 +229,12 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
             mPresenter.FishData(map1);
         }
 
+
     }
 
     @Override
     public void showError(String error) {
-        Log.i("yangxu", "show: "+error );
+        Log.i("yangxu", "show: " + error);
     }
 
     @Override

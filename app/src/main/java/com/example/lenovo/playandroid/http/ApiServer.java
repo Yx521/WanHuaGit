@@ -129,7 +129,11 @@ public interface ApiServer {
     /*外*/
     @POST("lg/collect/add/json")
     @FormUrlEncoded
-    Observable<Collect> getWaiCollect(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+    Observable<Collect> getWaiCollect(@Field("title") String  title, @Field("author") String author, @Field("link") String link);
+    @POST("lg/uncollect_originId/{id}/json")
+
+    Observable<Collect> cancelCollectArticle(@Path("id") int id);
+
 
     @GET("lg/collect/list/0/json")
     Observable<Data> getData();

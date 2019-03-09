@@ -37,6 +37,7 @@ import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.dao.LogDaoBean;
 import com.example.lenovo.playandroid.dao.LoginManager;
+import com.example.lenovo.playandroid.activitys.wlg.AboutActivity;
 import com.example.lenovo.playandroid.fragments.wx.ShouCangFragment;
 import com.example.lenovo.playandroid.fragments.yx.SearchFragment;
 import com.example.lenovo.playandroid.fragments.yx.UsageDialogFragment;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity
     private SearchFragment mSearchFragment;
     private TextView mLogin;
     private long exitTime;
+    private FragmentManager mSupportFragmentManager;
 
     private MenuItem mItem;
     private List<LogDaoBean> mSelect;
@@ -266,13 +268,15 @@ public class MainActivity extends AppCompatActivity
                 mDesignBottomSheet.setVisibility(View.GONE);
                 mFab.setVisibility(View.GONE);
                 mCommonToolbarTitleTv.setText(getString(R.string.setting));
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                mSupportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = mSupportFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_group, new SettingFragment());
                 fragmentTransaction.commit();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_item_about_us:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.nav_item_logout:
