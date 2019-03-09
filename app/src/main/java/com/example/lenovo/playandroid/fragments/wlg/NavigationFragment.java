@@ -86,44 +86,47 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
         Log.i("wlg导航", "shouNaviBean: " + naviBean);
         mData = naviBean.getData();
 
+        if(tabNavi!=null){
+            tabNavi.setTabAdapter(new TabAdapter() {
+                @Override
+                public int getCount() {
+                    return mData == null ? 0 : mData.size();
+                }
 
-        tabNavi.setTabAdapter(new TabAdapter() {
-            @Override
-            public int getCount() {
-                return mData == null ? 0 : mData.size();
-            }
+                @Override
+                public ITabView.TabBadge getBadge(int i) {
+                    return null;
+                }
 
-            @Override
-            public ITabView.TabBadge getBadge(int i) {
-                return null;
-            }
-
-            @Override
-            public ITabView.TabIcon getIcon(int i) {
-                return null;
-            }
+                @Override
+                public ITabView.TabIcon getIcon(int i) {
+                    return null;
+                }
 
 
-            @Override
-            public ITabView.TabTitle getTitle(int i) {
-                return new TabView.TabTitle.Builder()
-                        .setContent(mData.get(i).getName())
-                        .setTextColor(ContextCompat.getColor(getActivity(), R.color.tab_bac),
-                                ContextCompat.getColor(getActivity(), R.color.grey))
-                        .build();
-            }
+                @Override
+                public ITabView.TabTitle getTitle(int i) {
+                    return new TabView.TabTitle.Builder()
+                            .setContent(mData.get(i).getName())
+                            .setTextColor(ContextCompat.getColor(getActivity(), R.color.tab_bac),
+                                    ContextCompat.getColor(getActivity(), R.color.grey))
+                            .build();
+                }
 
-            @Override
-            public int getBackground(int i) {
-                return -1;
-            }
-        });
-        setChildViewVisibility(View.VISIBLE);
+                @Override
+                public int getBackground(int i) {
+                    return -1;
+                }
+            });
+            setChildViewVisibility(View.VISIBLE);
 
-        mNaviAdapter.replaceData(mData);
-        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
-        mNaviAdapter.openLoadAnimation(5);
-        leftRightLinkage();
+            mNaviAdapter.replaceData(mData);
+            Log.e("导航数据", "shouNaviBean: "+mData.toString() );
+            mNaviAdapter.openLoadAnimation(5);
+            leftRightLinkage();
+        }
+
+
 
     }
 

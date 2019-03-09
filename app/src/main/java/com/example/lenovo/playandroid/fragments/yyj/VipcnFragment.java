@@ -77,9 +77,12 @@ public class VipcnFragment extends BaseFragment<IView, Main_FuP<IView>> implemen
             strings.add(data.get(i).getName());
 
         }
-        MyAdapter myAdapter = new MyAdapter(getChildFragmentManager(), strings, fackFragments);
-        vp.setAdapter(myAdapter);
-        tab.setupWithViewPager(vp);
+        if(VipcnFragment.this.isAdded()){
+            MyAdapter myAdapter = new MyAdapter(getChildFragmentManager(), strings, fackFragments);
+            vp.setAdapter(myAdapter);
+            tab.setupWithViewPager(vp);
+        }
+
 
     }
 

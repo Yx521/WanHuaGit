@@ -252,6 +252,8 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_item_wan_android:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
+                MenuItem item1 = mDesignBottomSheet.getMenu().findItem(R.id.tab_main_pager);
+                item1.setChecked(true);
                 mDesignBottomSheet.setVisibility(View.VISIBLE);
                 mFab.setVisibility(View.VISIBLE);
                 mCommonToolbarTitleTv.setText(getString(R.string.home_pager));
@@ -368,23 +370,23 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
                         index = 0;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new HomePageFragment(), "0").commitAllowingStateLoss();
                         break;
                     case R.id.tab_knowledge_hierarchy:
                         index = 1;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new KnowledgeHierarchyFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new KnowledgeHierarchyFragment()).commitAllowingStateLoss();
                         break;
                     case R.id.tab_wx_article:
                         index = 2;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new VipcnFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new VipcnFragment()).commitAllowingStateLoss();
                         break;
                     case R.id.tab_navigation:
                         index = 3;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new NavigationFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new NavigationFragment()).commitAllowingStateLoss();
                         break;
                     case R.id.tab_project:
                         index = 4;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, mItemsFragment, "4").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_group, new ItemsFragment(), "4").commitAllowingStateLoss();
                         break;
                     default:
                         break;

@@ -68,9 +68,12 @@ public class ItemsFragment extends BaseFragment<IView, Presenter<IView>> impleme
             fragments.add(frag);
         }
         Log.e("yx", "show: " + fragments.size());
-        ItemsAdapter itemsAdapter = new ItemsAdapter(getChildFragmentManager(), data, fragments);
-        mProjectViewpager.setAdapter(itemsAdapter);
-        mProjectTabLayout.setViewPager(mProjectViewpager);
+        if(ItemsFragment.this.isAdded()){
+            ItemsAdapter itemsAdapter = new ItemsAdapter(getChildFragmentManager(), data, fragments);
+            mProjectViewpager.setAdapter(itemsAdapter);
+            mProjectTabLayout.setViewPager(mProjectViewpager);
+        }
+
     }
 
     @Override
