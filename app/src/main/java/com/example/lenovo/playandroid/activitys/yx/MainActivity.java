@@ -68,9 +68,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -192,6 +190,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
+
     }
 
     @Override
@@ -329,7 +328,8 @@ public class MainActivity extends AppCompatActivity
                     public void onNext(LoginData value) {
                         mAlertDialog.dismiss();
                         mDrawerLayout.openDrawer(Gravity.LEFT);
-                     SaveCookiesInterceptor.clearCookie(MainActivity.this);
+                        SaveCookiesInterceptor.clearCookie(MainActivity.this);
+
                         mSelect = new LoginManager().select();
                         if (value.getErrorMsg().equals("")) {
                             mItem.setVisible(false);
@@ -458,7 +458,5 @@ public class MainActivity extends AppCompatActivity
         mItem.setVisible(true);
         mLogin.setClickable(false);
         Log.e("name", name);
-
-
     }
 }

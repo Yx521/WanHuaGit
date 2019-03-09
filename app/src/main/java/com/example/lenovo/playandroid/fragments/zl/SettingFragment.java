@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.base.fragment.BaseFragment;
+import com.example.lenovo.playandroid.beans.wx.Data;
+import com.example.lenovo.playandroid.beans.wx.HttpResult;
 import com.example.lenovo.playandroid.presenter.zl.ZlPresenter;
 import com.example.lenovo.playandroid.utils.DataCleanManager;
 import com.example.lenovo.playandroid.utils.ShareUtil;
@@ -59,6 +61,21 @@ public class SettingFragment extends BaseFragment<ZlView, ZlPresenter<ZlView>> i
 
     @Override
     public void Register(Object registerdata) {
+
+    }
+
+    @Override
+    public void setData(Object obj) {
+
+    }
+
+    @Override
+    public void setS(Data value) {
+
+    }
+
+    @Override
+    public void shan(HttpResult value) {
 
     }
 

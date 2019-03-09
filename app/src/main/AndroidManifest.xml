@@ -37,9 +37,9 @@
         <activity android:name=".activitys.yyj.XiaActivity" />
         <activity android:name=".activitys.yyj.XinaActivity" />
         <activity android:name=".activitys.yyj.RegardActivity" />
+        <activity android:name=".activitys.zl.RegisterActivity"/>
         <activity android:name=".activitys.wlg.AboutActivity"></activity>
 
-        <activity android:name=".activitys.zl.RegisterActivity" />
     </application>
 
 </manifest>
