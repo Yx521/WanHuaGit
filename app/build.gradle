@@ -14,9 +14,19 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+             //打开资源压缩
+            shrinkResources false
+//            buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log*/
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
     //解决xrecyclerview依赖冲突
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
@@ -35,6 +45,18 @@ android {
         daoPackage 'com.example.lenovo.playandroid.dao'
         //设置DaoMaster、DaoSession、Dao目录
         targetGenDir 'src/main/java'
+
+    }
+
+    signingConfigs {
+        //密码在生成jks文件时填写的密码
+        //kyy0叫别名 也是在生成jks文件时填写的
+        debug {
+            storeFile file('een.jks')
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
 
     }
 }

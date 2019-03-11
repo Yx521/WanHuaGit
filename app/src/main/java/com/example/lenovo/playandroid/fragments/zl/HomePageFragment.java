@@ -56,6 +56,7 @@ public class HomePageFragment extends BaseFragment<ZlView, ZlPresenter<ZlView>> 
 
     @Override
     public void showError(String error) {
+        Log.i(TAG, "showError: ----------asdasdad--------fghjk");
         Log.e(TAG, "showError: " + error);
 
 
