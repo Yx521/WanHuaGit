@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mLogin;
     private long exitTime;
     private FragmentManager mSupportFragmentManager;
-
+ //hahahahahhahhahahhahahahaha
     private MenuItem mItem;
     private List<LogDaoBean> mSelect;
     private boolean mIsLogin;
