@@ -1,4 +1,4 @@
-package com.example.lenovo.playandroid.http;
+package com.example.lenovo.playandroid.utils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

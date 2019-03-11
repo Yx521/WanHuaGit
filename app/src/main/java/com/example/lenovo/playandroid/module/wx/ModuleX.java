@@ -1,18 +1,10 @@
 package com.example.lenovo.playandroid.module.wx;
 
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
-import com.example.lenovo.playandroid.beans.wx.Batree;
 import com.example.lenovo.playandroid.beans.wx.Re;
-import com.example.lenovo.playandroid.beans.yx.ProjectClassify;
-import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
-import com.example.lenovo.playandroid.module.yx.YxModle;
-
-import java.util.Map;
-
-import io.reactivex.Observable;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 /**
  * Created by ASUS on 2019/3/3.

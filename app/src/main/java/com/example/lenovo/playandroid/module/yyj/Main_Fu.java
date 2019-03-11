@@ -1,14 +1,11 @@
 package com.example.lenovo.playandroid.module.yyj;
 
-import android.util.Log;
-
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 import com.example.lenovo.playandroid.beans.yyj.Bean;
 import com.example.lenovo.playandroid.beans.yyj.Fuyong;
-import com.example.lenovo.playandroid.beans.yyj.sousuo;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 
 public class Main_Fu {

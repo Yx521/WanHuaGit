@@ -1,13 +1,10 @@
 package com.example.lenovo.playandroid.module.yx;
 
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
-import com.example.lenovo.playandroid.beans.yx.ProjectClassifyData;
 import com.example.lenovo.playandroid.beans.yx.UsefulSiteData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
-
-import java.util.Map;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 /**
  * Created by lenovo on 2019/3/4.
