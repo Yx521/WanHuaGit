@@ -67,6 +67,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
     @BindView(R.id.common_toolbar_title_tv)
     TextView mCommonToolbarTitleTv;
     @BindView(R.id.toolbar)
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mIntent = getIntent();
-        Log.i("TAG", "onCreate: ----------------dddddddddddddddddddd");
+        Log.d(TAG, "onCreate: =="+"kmoj");
         mA = mIntent.getBooleanExtra("a", true);
         View headerView = mNavView.getHeaderView(0);
         mLogin = headerView.findViewById(R.id.nav_header_login_tv);
