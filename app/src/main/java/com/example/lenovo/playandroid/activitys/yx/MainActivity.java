@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Log.e("TAg", "onCreate: -------------asda---asd----------asddsd" );
+        Log.e("TAg", "onCreate: ----------------asd----------asddsd" );
+        Log.e("TAg", "onCreate: -------------asda-------------asddsd" );
         mIntent = getIntent();
         Log.i("TAG", "onCreate: ----------------dddddddddddddddddddd");
         mA = mIntent.getBooleanExtra("a", true);
