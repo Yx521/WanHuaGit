@@ -122,6 +122,10 @@ public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresent
 
         mNaviAdapter.replaceData(mData);
         Log.e("导航数据", "shouNaviBean: "+mData.toString() );
+        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
+        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
+        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
+        Log.e("导航数据", "shouNaviBean: "+mData.toString() );
         mNaviAdapter.openLoadAnimation(5);
         leftRightLinkage();
 
