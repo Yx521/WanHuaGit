@@ -1,19 +1,14 @@
 package com.example.lenovo.playandroid.module.zl;
 
-import android.util.Log;
-
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.beans.zl.FeedArticleListData;
 import com.example.lenovo.playandroid.beans.zl.LoginData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
-import com.example.lenovo.playandroid.presenter.zl.ZlPresenter;
-import com.example.lenovo.playandroid.view.zl.ZlView;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 import io.reactivex.Observable;
-import retrofit2.http.HTTP;
 
 /**
  * Created by 18 on 2019/2/28.

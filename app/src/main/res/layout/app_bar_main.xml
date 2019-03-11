@@ -58,6 +58,7 @@
         app:menu="@menu/bottom_navigation_main"
         android:background="@color/colorCard"
         app:elevation="@dimen/dp_16"
+
         app:layout_behavior="@string/bye_burger_bottom_behavior" />
 
 
