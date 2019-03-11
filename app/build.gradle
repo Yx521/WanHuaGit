@@ -13,7 +13,12 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+             //打开资源压缩  重复的xml
+            shrinkResources true
+            //关闭log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +41,19 @@ android {
         //设置DaoMaster、DaoSession、Dao目录
         targetGenDir 'src/main/java'
 
+    }
+    signingConfigs {
+        debug {
+            // signingConfig signingConfigs.debug 添加到release
+            //jks路径
+            storeFile file('tt.jks')
+            //密码
+            storePassword "123456"
+            //账号
+            keyAlias "key0"
+            //密码
+            keyPassword "123456"
+        }
     }
 }
 

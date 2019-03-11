@@ -157,11 +157,14 @@ public class ZlRecycAdapter extends RecyclerView.Adapter {
     }
 
     public void addBanner(List<BannerBean.DataBean> data) {
-        mBannerData.addAll(data);
-        for (int i = 0; i < data.size(); i++) {
-            bannerImage.add(data.get(i).getImagePath());
-            bannerTitle.add(data.get(i).getTitle());
+        if(mBannerData!=null&&data!=null){
+            mBannerData.addAll(data);
+            for (int i = 0; i < data.size(); i++) {
+                bannerImage.add(data.get(i).getImagePath());
+                bannerTitle.add(data.get(i).getTitle());
+            }
         }
+
 
     }
 

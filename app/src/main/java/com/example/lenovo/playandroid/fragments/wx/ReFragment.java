@@ -65,6 +65,7 @@ public class ReFragment extends BaseFragment<IView, PresenterX<IView>> implement
 
     //复用
  public static Fragment fuyong(int userid) {
+     Log.i(TAG, "fuyong: wedfgrtehyt");
          ReFragment reFragment = new  ReFragment();
          Bundle bundle = new Bundle();
           bundle.putInt("int", userid);

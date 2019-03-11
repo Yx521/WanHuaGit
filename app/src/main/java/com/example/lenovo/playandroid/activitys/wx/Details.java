@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class Details extends BaseActivity<IView,PresenterXin<IView>> implements IView,View.OnClickListener {
 
-   private String title;
+    private  String title;
     private WebView detailsWebview;
     private ImageView img;
     private ImageView xin_img;
@@ -220,6 +220,7 @@ public class Details extends BaseActivity<IView,PresenterXin<IView>> implements 
             map1.put("originId",originId);
             Log.i("yangxu", originId+"onClick: "+id1);
             mPresenter.FishData(map1);
+
         }
 
     }

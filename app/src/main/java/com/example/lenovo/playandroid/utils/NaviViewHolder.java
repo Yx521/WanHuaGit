@@ -1,4 +1,4 @@
-package com.example.lenovo.playandroid.adapter.wlg;
+package com.example.lenovo.playandroid.utils;
 
 import android.view.View;
 import android.widget.TextView;
@@ -22,8 +22,6 @@ public class NaviViewHolder extends BaseViewHolder {
     TextView tv;
     public NaviViewHolder(View view) {
         super(view);
-
-
         ButterKnife.bind(this, view);
         }
 

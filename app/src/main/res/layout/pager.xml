@@ -127,10 +127,10 @@
                     tools:text="14小时之前"
                     android:textColor="@color/comment_text"
                     android:gravity="center_vertical"
-                    android:layout_toEndOf="@id/item_search_pager_like_iv"
+
                     android:layout_toStartOf="@id/item_search_tag_group"
                     android:layout_toLeftOf="@id/item_search_tag_group"
-                    android:layout_toRightOf="@id/item_search_pager_like_iv"
+
                     android:layout_marginLeft="@dimen/dp_12"
                     android:drawableLeft="@drawable/cc" />
             </RelativeLayout>

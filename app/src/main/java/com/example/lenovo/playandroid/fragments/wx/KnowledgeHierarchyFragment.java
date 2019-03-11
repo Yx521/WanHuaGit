@@ -63,6 +63,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<IView, WxPresenter<
 
     @Override
     protected void initData() {
+        Log.i(TAG, "initData: -----oncreate  jjjjjjj");
         mPresenter.FishData("");
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(manager);
