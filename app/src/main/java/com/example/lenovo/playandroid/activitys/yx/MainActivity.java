@@ -67,7 +67,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+ //修改代码
     @BindView(R.id.common_toolbar_title_tv)
     TextView mCommonToolbarTitleTv;
     @BindView(R.id.toolbar)
