@@ -56,7 +56,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
-//erstgthjklffghjklfghj
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observer;
