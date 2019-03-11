@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         View headerView = mNavView.getHeaderView(0);
         mLogin = headerView.findViewById(R.id.nav_header_login_tv);
 
-        mSelect = LoginManager.mMySqlHelper().select();
+        mSelect = LoginManager.mMySqlHelper().select(); 
         if (mSelect.size() <= 0) {
             LoginManager.mMySqlHelper().insert(new LogDaoBean(null, "登录", false));
         }
