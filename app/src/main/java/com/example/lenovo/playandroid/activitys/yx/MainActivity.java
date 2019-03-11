@@ -57,7 +57,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observer;
@@ -67,6 +66,8 @@ import io.reactivex.schedulers.Schedulers;
 //杨旭
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
  //修改代码
     @BindView(R.id.common_toolbar_title_tv)
     TextView mCommonToolbarTitleTv;

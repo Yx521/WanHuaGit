@@ -34,8 +34,6 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * A simple {@link Fragment} subclass.
  */
 public class NavigationFragment extends BaseFragment<WlgNaviView, WlgNaviPresenter<WlgNaviView>> implements WlgNaviView {
-
-
     @BindView(R.id.tab_navi)
     VerticalTabLayout tabNavi;
     @BindView(R.id.navigation_divider)
