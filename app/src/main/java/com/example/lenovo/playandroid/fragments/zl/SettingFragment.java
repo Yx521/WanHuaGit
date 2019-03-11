@@ -3,6 +3,7 @@ package com.example.lenovo.playandroid.fragments.zl;
 import android.content.Intent;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -77,7 +78,7 @@ public class SettingFragment extends BaseFragment<ZlView, ZlPresenter<ZlView>> i
 
     @Override
     protected void initData() {
-
+        Log.i("TAG", "initData:啦啦啦啦啦 ");
         List<DecisionGlide> glideList = DataBaseMannger.getIntrance().selectGlide();
         Boolean isbo = glideList.get(0).getIsbo();
         Boolean isbo1 = glideList.get(1).getIsbo();
