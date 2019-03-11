@@ -1,12 +1,10 @@
 package com.example.lenovo.playandroid.module.wx;
 
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
-import com.example.lenovo.playandroid.base.presenter.IBasePresenter;
 import com.example.lenovo.playandroid.beans.wx.Batree;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
-import com.example.lenovo.playandroid.view.yx.IView;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 import io.reactivex.Observable;
 

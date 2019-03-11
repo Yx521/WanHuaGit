@@ -3,10 +3,9 @@ package com.example.lenovo.playandroid.module.yx;
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 import com.example.lenovo.playandroid.beans.TopSearchData;
 import com.example.lenovo.playandroid.beans.yx.SearchList;
-import com.example.lenovo.playandroid.beans.yx.UsefulSiteData;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.example.lenovo.playandroid.adapter.wlg;
+package com.example.lenovo.playandroid.utils;
 
 import android.view.View;
 import android.widget.TextView;

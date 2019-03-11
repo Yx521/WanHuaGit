@@ -2,10 +2,8 @@ package com.example.lenovo.playandroid.adapter.wlg;
 
 import android.app.ActivityOptions;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.lenovo.playandroid.R;
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
+import com.example.lenovo.playandroid.utils.NaviViewHolder;
 import com.example.lenovo.playandroid.utils.navi.CommonUtils;
 import com.example.lenovo.playandroid.utils.navi.JudgeUtils;
 import com.zhy.view.flowlayout.FlowLayout;

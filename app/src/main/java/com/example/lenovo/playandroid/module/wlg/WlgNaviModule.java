@@ -2,11 +2,9 @@ package com.example.lenovo.playandroid.module.wlg;
 
 import com.example.lenovo.playandroid.base.module.HttpFinishCallBack;
 import com.example.lenovo.playandroid.beans.wlg.NaviBean;
-import com.example.lenovo.playandroid.beans.zl.BannerBean;
 import com.example.lenovo.playandroid.http.BaseObserver;
 import com.example.lenovo.playandroid.http.HttpManager;
-import com.example.lenovo.playandroid.http.RxUtils;
-import com.example.lenovo.playandroid.module.zl.ZlModule;
+import com.example.lenovo.playandroid.utils.RxUtils;
 
 import io.reactivex.Observable;
 

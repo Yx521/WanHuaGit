@@ -55,8 +55,8 @@ import com.example.lenovo.playandroid.utils.CircularRevealAnim;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +64,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
+//杨旭
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
  //修改代码
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
         Log.e("TAg", "onCreate: ----------------asd----------asddsd" );
         Log.e("TAg", "onCreate: -------------asda-------------asddsd" );
         mIntent = getIntent();
+        Log.i("TAG", "onCreate: ----------------dddddddddddddddddddd");
         mA = mIntent.getBooleanExtra("a", true);
         View headerView = mNavView.getHeaderView(0);
         mLogin = headerView.findViewById(R.id.nav_header_login_tv);
