@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mIntent = getIntent();
+        Log.i("TAG", "onCreate: ----------------dddddddddddddddddddd");
         mA = mIntent.getBooleanExtra("a", true);
         View headerView = mNavView.getHeaderView(0);
         mLogin = headerView.findViewById(R.id.nav_header_login_tv);
