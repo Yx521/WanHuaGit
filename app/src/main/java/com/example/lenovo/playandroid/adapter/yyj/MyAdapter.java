@@ -1,5 +1,7 @@
 package com.example.lenovo.playandroid.adapter.yyj;
 
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +13,7 @@ import com.example.lenovo.playandroid.fragments.yyj.FackFragment;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends FragmentPagerAdapter {
+public class MyAdapter extends FragmentStatePagerAdapter {
     private ArrayList<String>strings;
     private ArrayList<FackFragment> fackFragments;
     public MyAdapter(FragmentManager fm, ArrayList<String>str, ArrayList<FackFragment> ll) {
@@ -35,5 +37,11 @@ public class MyAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fackFragments.size();
     }
+
+   /* @Override
+    public void restoreState(Parcelable state, ClassLoader loader) {
+        super.restoreState(state, loader);
+    }*/
+
 
 }

@@ -7,7 +7,7 @@
     tools:context="com.example.lenovo.playandroid.fragments.yyj.VipcnFragment">
     <include
         layout="@layout/loading_view"/>
-    <android.support.design.widget.TabLayout
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab"
         android:layout_width="match_parent"
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.lenovo.playandroid.fragments.yyj.FackFragment;
 
 import com.example.lenovo.playandroid.presenter.yyj.Main_FuP;
 import com.example.lenovo.playandroid.view.yx.IView;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,9 +39,10 @@ public class VipcnFragment extends BaseFragment<IView, Main_FuP<IView>> implemen
 
 
 
-    private TabLayout tab;
+   // private TabLayout tab;
     private ViewPager vp;
     private ArrayList<FackFragment> fackFragments;
+    private SlidingTabLayout tab;
 
     public VipcnFragment() {
         // Required empty public constructor
@@ -79,7 +82,8 @@ public class VipcnFragment extends BaseFragment<IView, Main_FuP<IView>> implemen
         }
         MyAdapter myAdapter = new MyAdapter(getChildFragmentManager(), strings, fackFragments);
         vp.setAdapter(myAdapter);
-        tab.setupWithViewPager(vp);
+        tab.setViewPager(vp);
+       // tab.setupWithViewPager(vp);
 
     }
 

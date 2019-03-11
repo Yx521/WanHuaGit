@@ -157,17 +157,19 @@ public class FackFragment extends BaseFragment<YanView, DuoP<YanView>> implement
 
             }
         });
+        if(FackFragment.this.isAdded()){
+            soosoo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String s = shou.getText().toString();
+                    if (TextUtils.isEmpty(s)){
+                        return;
+                    }
+                    mPresenter.soulian("", s, page);
+                }
+            });
+        }
 
-        soosoo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = shou.getText().toString();
-              if (TextUtils.isEmpty(s)){
-                  return;
-              }
-                mPresenter.soulian("", s, page);
-            }
-        });
 
         xreAdapter1.setOnClickyan(this);
         xreAdapter1.setOnClickBai(this);
